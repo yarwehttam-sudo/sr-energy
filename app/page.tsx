@@ -37,7 +37,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/get-quote"
+              href="/contact/"
               className="rounded-lg bg-green-500 px-8 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
             >
               Get a Free Quote →
@@ -166,7 +166,7 @@ export default function HomePage() {
             No FICO score required.
           </p>
           <Link
-            href="/get-quote"
+            href="/contact/"
             className="mt-6 inline-block rounded-lg bg-green-500 px-8 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
           >
             Get a Free Quote →
