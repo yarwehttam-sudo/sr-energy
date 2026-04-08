@@ -133,13 +133,13 @@ export default function HoneycombHero() {
 
       {/* SR Energy logo watermark */}
       <image
-        href="/images/logo-dark.png"
+        href="/images/logo.png"
         x="50%"
         y="50%"
         width="800"
         height="800"
         transform="translate(-400, -400)"
-        opacity={0.08}
+        opacity={0.06}
       />
     </svg>
   );
