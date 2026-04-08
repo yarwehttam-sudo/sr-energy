@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
-import Image from "next/image";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -37,15 +36,33 @@ export default function RootLayout({
       >
         <header className="sticky top-0 z-50 bg-[#1e2333] shadow-sm">
           <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between">
-            <Link href="/">
-              <Image
-                src="/images/BlackSRE.png"
-                width={100}
-                height={44}
-                alt="SR Energy"
-                className="logo-pulse"
-                style={{ objectFit: 'contain' }}
-              />
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <div className="logo-pulse" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+                <div style={{
+                  border: '2px solid #F0A500',
+                  padding: '4px 10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minWidth: '64px'
+                }}>
+                  <span style={{
+                    color: '#F0A500',
+                    fontSize: '28px',
+                    fontWeight: '700',
+                    letterSpacing: '4px',
+                    lineHeight: 1,
+                    fontFamily: 'Georgia, serif'
+                  }}>SR</span>
+                </div>
+                <span style={{
+                  color: '#F0A500',
+                  fontSize: '9px',
+                  fontWeight: '400',
+                  letterSpacing: '6px',
+                  fontFamily: 'Georgia, serif'
+                }}>ENERGY</span>
+              </div>
             </Link>
             <nav className="flex items-center gap-6">
               <Link
