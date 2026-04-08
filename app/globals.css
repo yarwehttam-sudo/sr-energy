@@ -40,3 +40,13 @@ body {
 .ticker-track:hover {
   animation-play-state: paused;
 }
+
+@keyframes slowRotate {
+  from { transform: rotate(0deg) scale(1.5); }
+  to   { transform: rotate(360deg) scale(1.5); }
+}
+
+.honeycomb-rotate {
+  animation: slowRotate 120s linear infinite;
+  transform-origin: center center;
+}

@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
 import SavingsCalculator from '@/app/components/SavingsCalculator';
+import HoneycombHero from '@/app/components/HoneycombHero';
 
 // Build: force-redeploy-v2
 
@@ -49,24 +49,11 @@ export default function HomePageClient() {
       {/* ── Hero ── */}
       <section
         className="relative px-4 py-14 text-white sm:py-20"
-        style={{
-          backgroundImage: "url('/images/honeycomb.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        style={{ backgroundColor: '#1e2333' }}
       >
-        {/* Watermark logo */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-          zIndex: 0,
-          filter: 'drop-shadow(0 2px 4px rgba(255,255,255,0.15)) drop-shadow(0 -1px 2px rgba(0,0,0,0.8)) brightness(0) invert(0)',
-          opacity: 0.18,
-        }}>
-          <Image src="/images/logo.png" width={1040} height={1040} alt="" aria-hidden="true" style={{ objectFit: 'contain', mixBlendMode: 'overlay' }} />
+        {/* Animated honeycomb background */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
+          <HoneycombHero />
         </div>
 
         <div className="relative mx-auto max-w-3xl text-center" style={{ position: 'relative', zIndex: 10 }}>
