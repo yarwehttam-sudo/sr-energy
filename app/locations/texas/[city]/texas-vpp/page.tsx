@@ -244,25 +244,25 @@ export default async function TexasVppCityPage({
         {/* Breadcrumb */}
         <nav
           aria-label="breadcrumb"
-          className="border-b border-gray-100 bg-gray-50 px-4 py-2.5 text-xs text-gray-500"
+          className="border-b border-gray-100 bg-[#111827] px-4 py-2.5 text-xs text-gray-400"
         >
           <ol className="mx-auto flex max-w-5xl flex-wrap items-center gap-1.5">
-            <li><Link href="/" className="hover:text-gray-700 hover:underline">Home</Link></li>
+            <li><Link href="/" className="hover:text-gray-200 hover:underline">Home</Link></li>
             <li aria-hidden>›</li>
-            <li><Link href="/locations/texas/" className="hover:text-gray-700 hover:underline">Texas</Link></li>
+            <li><Link href="/locations/texas/" className="hover:text-gray-200 hover:underline">Texas</Link></li>
             <li aria-hidden>›</li>
             <li>
-              <Link href={`/locations/texas/${citySlug}/`} className="hover:text-gray-700 hover:underline">
+              <Link href={`/locations/texas/${citySlug}/`} className="hover:text-gray-200 hover:underline">
                 {c.name}
               </Link>
             </li>
             <li aria-hidden>›</li>
-            <li className="font-medium text-gray-700" aria-current="page">Texas VPP Program</li>
+            <li className="font-medium text-gray-200" aria-current="page">Texas VPP Program</li>
           </ol>
         </nav>
 
         {/* Hero */}
-        <section className="bg-green-700 px-4 py-14 text-white sm:py-20">
+        <section className="bg-[#1e2333] px-4 py-14 text-white sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-3 flex justify-center">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white ring-1 ring-inset ring-white/30">
@@ -272,7 +272,7 @@ export default async function TexasVppCityPage({
             <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
               Texas VPP Program in {c.name}, TX<br className="hidden sm:block" /> — Free Home Battery
             </h1>
-            <p className="mt-4 text-lg text-green-100">
+            <p className="mt-4 text-lg text-gray-300">
               SR Energy installs your battery at $0 cost. You get backup power.
               ERCOT gets grid stability. Everyone wins.
             </p>
@@ -294,7 +294,7 @@ export default async function TexasVppCityPage({
             <div className="mt-8">
               <Link
                 href={`/get-quote?product=texas-vpp&state=TX&city=${citySlug}`}
-                className="rounded-lg bg-white px-7 py-3 text-base font-semibold text-green-800 shadow hover:bg-green-50 transition-colors"
+                className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Check My {c.name} VPP Eligibility →
               </Link>
@@ -320,9 +320,9 @@ export default async function TexasVppCityPage({
         </section>
 
         {/* Program Details */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               Program Details
             </h2>
             <FaqAccordion items={programDetails} />
@@ -341,7 +341,7 @@ export default async function TexasVppCityPage({
                   key={b.label}
                   className="flex flex-col items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-5 text-center shadow-sm"
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-50 text-green-600">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#F0A500]/10 text-[#F0A500]">
                     {b.icon}
                   </span>
                   <span className="text-xs font-semibold text-gray-700">{b.label}</span>
@@ -352,9 +352,9 @@ export default async function TexasVppCityPage({
         </section>
 
         {/* Eligibility Checklist */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               Am I Eligible? — {c.name} Checklist
             </h2>
             <ul className="space-y-3">
@@ -367,12 +367,12 @@ export default async function TexasVppCityPage({
                 'You are not currently enrolled in a conflicting whole-home battery VPP program with another provider',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-white">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#d4920a] text-white">
                     <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
                   </span>
-                  <span className="text-sm text-gray-700">{item}</span>
+                  <span className="text-sm text-gray-300">{item}</span>
                 </li>
               ))}
             </ul>
@@ -380,14 +380,14 @@ export default async function TexasVppCityPage({
         </section>
 
         {/* Reviews */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               What {c.name} Homeowners Say About the VPP Program
             </h2>
             <ul className="grid gap-5 sm:grid-cols-3">
               {vppReviews.map((review) => (
-                <li key={review.name} className="flex flex-col rounded-xl border border-green-200 bg-white p-5 shadow-sm">
+                <li key={review.name} className="flex flex-col rounded-xl border border-[#F0A500]/30 bg-white p-5 shadow-sm">
                   <div className="flex gap-0.5 text-yellow-400">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <svg key={i} className="h-4 w-4 fill-current" viewBox="0 0 20 20" aria-hidden="true">
@@ -415,9 +415,9 @@ export default async function TexasVppCityPage({
 
         {/* Nearby Texas VPP cities */}
         {otherTexasCities.length > 0 && (
-          <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+          <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
             <div className="mx-auto max-w-5xl">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">
+              <h2 className="mb-4 text-xl font-bold text-white">
                 Texas VPP Program in Other Cities
               </h2>
               <ul className="flex flex-wrap gap-3">
@@ -425,7 +425,7 @@ export default async function TexasVppCityPage({
                   <li key={other.slug}>
                     <Link
                       href={`/locations/texas/${other.slug}/texas-vpp/`}
-                      className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:border-green-400 hover:text-green-700 transition-colors"
+                      className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:border-[#F0A500]/30 hover:text-[#F0A500] transition-colors"
                     >
                       VPP in {other.name} →
                     </Link>
@@ -437,21 +437,21 @@ export default async function TexasVppCityPage({
         )}
 
         {/* Bottom CTA */}
-        <section className="bg-green-700 px-4 py-14 text-center text-white">
+        <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
           <div className="mx-auto max-w-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">
               Get your free battery in {c.name} today.
             </h2>
-            <p className="mt-3 text-green-100">
+            <p className="mt-3 text-gray-300">
               $0 cost · 20-year warranty · No credit check · Keep it forever.
             </p>
             <Link
               href={`/get-quote?product=texas-vpp&state=TX&city=${citySlug}`}
-              className="mt-6 inline-block rounded-lg bg-white px-8 py-3 text-base font-semibold text-green-800 shadow hover:bg-green-50 transition-colors"
+              className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Check My {c.name} VPP Eligibility →
             </Link>
-            <p className="mt-4 text-sm text-green-200">
+            <p className="mt-4 text-sm text-gray-400">
               Or call us:{' '}
               <a
                 href={`tel:${BUSINESS_INFO.phone.replace(/\D/g, '')}`}

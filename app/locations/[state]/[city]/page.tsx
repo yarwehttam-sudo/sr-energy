@@ -229,28 +229,28 @@ export default async function CityPage({
         {/* Breadcrumb */}
         <nav
           aria-label="breadcrumb"
-          className="border-b border-gray-100 bg-gray-50 px-4 py-2.5 text-xs text-gray-500"
+          className="border-b border-gray-100 bg-[#111827] px-4 py-2.5 text-xs text-gray-400"
         >
           <ol className="mx-auto flex max-w-5xl flex-wrap items-center gap-1.5">
             <li>
-              <Link href="/" className="hover:text-gray-700 hover:underline">Home</Link>
+              <Link href="/" className="hover:text-gray-200 hover:underline">Home</Link>
             </li>
             <li aria-hidden>›</li>
             <li>
-              <Link href={`/locations/${stateSlug}/`} className="hover:text-gray-700 hover:underline">
+              <Link href={`/locations/${stateSlug}/`} className="hover:text-gray-200 hover:underline">
                 {s.name}
               </Link>
             </li>
             <li aria-hidden>›</li>
-            <li className="font-medium text-gray-700" aria-current="page">{c.name}</li>
+            <li className="font-medium text-gray-200" aria-current="page">{c.name}</li>
           </ol>
         </nav>
 
         {/* Hero */}
-        <section className="bg-gray-900 px-4 py-14 text-white sm:py-18">
+        <section className="bg-[#1e2333] px-4 py-14 text-white sm:py-18">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-3 flex justify-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d4920a]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
                 {c.name}, {s.abbr} — No Credit Check Required
               </span>
             </div>
@@ -264,7 +264,7 @@ export default async function CityPage({
             <div className="mt-8">
               <Link
                 href={`/get-quote?city=${citySlug}&state=${s.abbr}`}
-                className="rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+                className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Get Your Free {c.name} Quote →
               </Link>
@@ -283,9 +283,9 @@ export default async function CityPage({
         </section>
 
         {/* Services */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               Services We Offer in {c.name}
             </h2>
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -295,22 +295,22 @@ export default async function CityPage({
                     href={p.href}
                     className={`group flex h-full flex-col rounded-xl border px-5 py-5 shadow-sm transition-all hover:shadow-md ${
                       p.isVpp
-                        ? 'border-green-200 bg-green-50 hover:border-green-400'
-                        : 'border-gray-200 bg-white hover:border-green-300'
+                        ? 'border-[#F0A500]/30 bg-[#111827] hover:border-[#F0A500]/30'
+                        : 'border-gray-200 bg-white hover:border-[#F0A500]/30'
                     }`}
                   >
                     <span
                       className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg ${
                         p.isVpp
-                          ? 'bg-green-600 text-white'
-                          : 'bg-gray-100 text-green-600 group-hover:bg-green-50'
+                          ? 'bg-[#d4920a] text-white'
+                          : 'bg-gray-100 text-[#F0A500] group-hover:bg-[#F0A500]/10'
                       }`}
                     >
                       {p.icon}
                     </span>
                     <span className="text-sm font-bold text-gray-900">{p.label}</span>
                     <span className="mt-1 text-xs text-gray-500 leading-relaxed">{p.description}</span>
-                    <span className="mt-3 text-xs font-medium text-green-600 group-hover:underline">
+                    <span className="mt-3 text-xs font-medium text-[#F0A500] group-hover:underline">
                       Learn more →
                     </span>
                   </Link>
@@ -323,11 +323,11 @@ export default async function CityPage({
         {/* Texas VPP callout — Texas city pages only */}
         {s.isVppEligible && (
           <section className="px-4 py-10">
-            <div className="mx-auto max-w-3xl rounded-2xl border border-green-200 bg-green-50 px-6 py-8 sm:px-10">
-              <h2 className="mb-3 text-xl font-bold text-green-900 sm:text-2xl">
+            <div className="mx-auto max-w-3xl rounded-2xl border border-[#F0A500]/30 bg-[#111827] px-6 py-8 sm:px-10">
+              <h2 className="mb-3 text-xl font-bold text-white sm:text-2xl">
                 Texas VPP Program in {c.name}
               </h2>
-              <p className="text-sm text-green-800">
+              <p className="text-sm text-gray-300">
                 Eligible {c.name} homeowners can receive a professionally installed home battery at
                 no cost through the Texas Virtual Power Plant (VPP) program. SR Energy handles
                 installation, monitoring, and maintenance for the full 20-year program term — and
@@ -335,7 +335,7 @@ export default async function CityPage({
               </p>
               <Link
                 href={`/locations/texas/${citySlug}/texas-vpp/`}
-                className="mt-5 inline-block rounded-lg bg-green-600 px-6 py-2.5 text-sm font-semibold text-white shadow hover:bg-green-500 transition-colors"
+                className="mt-5 inline-block rounded-lg bg-[#d4920a] px-6 py-2.5 text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
               >
                 Check VPP Eligibility in {c.name} →
               </Link>
@@ -360,12 +360,12 @@ export default async function CityPage({
 
         {/* Nearby cities */}
         {nearbyCities.length > 0 && (
-          <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+          <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
             <div className="mx-auto max-w-5xl">
-              <h2 className="mb-3 text-xl font-bold text-gray-900">
+              <h2 className="mb-3 text-xl font-bold text-white">
                 Also Serving Nearby {s.name} Cities
               </h2>
-              <p className="mb-4 text-sm text-gray-600">
+              <p className="mb-4 text-sm text-gray-400">
                 SR Energy&apos;s service area extends beyond {c.name} throughout {s.name}. Explore
                 no-credit-check solar options in nearby communities:
               </p>
@@ -374,7 +374,7 @@ export default async function CityPage({
                   <li key={nearby.slug}>
                     <Link
                       href={`/locations/${stateSlug}/${nearby.slug}/`}
-                      className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:border-green-400 hover:text-green-700 transition-colors"
+                      className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:border-[#F0A500]/30 hover:text-[#F0A500] transition-colors"
                     >
                       Solar in {nearby.name} →
                     </Link>
@@ -386,9 +386,9 @@ export default async function CityPage({
         )}
 
         {/* Reviews */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               What {c.name} Homeowners Are Saying
             </h2>
             <ul className="grid gap-5 sm:grid-cols-3">
@@ -441,7 +441,7 @@ export default async function CityPage({
         </section>
 
         {/* Bottom CTA */}
-        <section className="bg-gray-900 px-4 py-14 text-center text-white">
+        <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
           <div className="mx-auto max-w-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">
               Ready to go solar in {c.name}?
@@ -452,7 +452,7 @@ export default async function CityPage({
             </p>
             <Link
               href={`/get-quote?city=${citySlug}&state=${s.abbr}`}
-              className="mt-6 inline-block rounded-lg bg-green-500 px-8 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+              className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Get Your Free {c.name} Quote →
             </Link>
@@ -460,7 +460,7 @@ export default async function CityPage({
               Or call us:{' '}
               <a
                 href={`tel:${BUSINESS_INFO.phone.replace(/\D/g, '')}`}
-                className="text-green-400 hover:underline"
+                className="text-[#F0A500] hover:underline"
               >
                 {BUSINESS_INFO.phone}
               </a>

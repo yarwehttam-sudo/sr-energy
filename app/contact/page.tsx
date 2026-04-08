@@ -15,9 +15,9 @@ export default function ContactPage() {
     <main className="min-h-screen bg-white text-gray-900">
 
       {/* ── HERO ── */}
-      <section className="bg-gray-900 px-4 py-14 text-white sm:py-18">
+      <section className="bg-[#1e2333] px-4 py-14 text-white sm:py-18">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d4920a]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
             {/* leaf icon */}
             <svg
               className="h-3.5 w-3.5"
@@ -54,7 +54,7 @@ export default function ContactPage() {
 
             {/* Phone */}
             <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg
                   className="h-5 w-5"
                   viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ export default function ContactPage() {
               </p>
               <a
                 href={BUSINESS_INFO.phoneTel}
-                className="mt-4 text-lg font-semibold text-green-600 hover:text-green-500 transition-colors"
+                className="mt-4 text-lg font-semibold text-[#F0A500] hover:text-[#fbb82a] transition-colors"
               >
                 {BUSINESS_INFO.phone}
               </a>
@@ -84,7 +84,7 @@ export default function ContactPage() {
 
             {/* Email */}
             <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg
                   className="h-5 w-5"
                   viewBox="0 0 24 24"
@@ -104,7 +104,7 @@ export default function ContactPage() {
               </p>
               <a
                 href={BUSINESS_INFO.emailHref}
-                className="mt-4 break-all text-sm font-semibold text-green-600 hover:text-green-500 transition-colors"
+                className="mt-4 break-all text-sm font-semibold text-[#F0A500] hover:text-[#fbb82a] transition-colors"
               >
                 {BUSINESS_INFO.email}
               </a>
@@ -115,7 +115,7 @@ export default function ContactPage() {
 
             {/* Response time */}
             <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-green-600">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-[#F0A500]">
                 <svg
                   className="h-5 w-5"
                   viewBox="0 0 24 24"
@@ -154,11 +154,11 @@ export default function ContactPage() {
       </section>
 
       {/* ── CONTACT FORM ── */}
-      <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+      <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
         <div className="mx-auto max-w-3xl">
           <div className="mb-8 text-center">
-            <h2 className="text-xl font-bold sm:text-2xl">Send Us a Message</h2>
-            <p className="mt-2 text-sm text-gray-600">
+            <h2 className="text-xl font-bold text-white sm:text-2xl">Send Us a Message</h2>
+            <p className="mt-2 text-sm text-gray-400">
               Fill out the form below and our team will reach out within one business day.
             </p>
           </div>
@@ -173,14 +173,14 @@ export default function ContactPage() {
                     htmlFor="name"
                     className="mb-1.5 block text-sm font-semibold text-gray-700"
                   >
-                    Full Name <span className="text-green-600">*</span>
+                    Full Name <span className="text-[#F0A500]">*</span>
                   </label>
                   <input
                     id="name"
                     type="text"
                     required
                     placeholder="Jane Smith"
-                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
                   />
                 </div>
                 <div>
@@ -194,7 +194,7 @@ export default function ContactPage() {
                     id="phone"
                     type="tel"
                     placeholder="(555) 000-0000"
-                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
                   />
                 </div>
               </div>
@@ -205,14 +205,14 @@ export default function ContactPage() {
                   htmlFor="email"
                   className="mb-1.5 block text-sm font-semibold text-gray-700"
                 >
-                  Email Address <span className="text-green-600">*</span>
+                  Email Address <span className="text-[#F0A500]">*</span>
                 </label>
                 <input
                   id="email"
                   type="email"
                   required
                   placeholder="jane@example.com"
-                  className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                  className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
                 />
               </div>
 
@@ -222,13 +222,13 @@ export default function ContactPage() {
                   htmlFor="subject"
                   className="mb-1.5 block text-sm font-semibold text-gray-700"
                 >
-                  Subject <span className="text-green-600">*</span>
+                  Subject <span className="text-[#F0A500]">*</span>
                 </label>
                 <select
                   id="subject"
                   required
                   defaultValue=""
-                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
                 >
                   <option value="" disabled>
                     Select a subject
@@ -248,14 +248,14 @@ export default function ContactPage() {
                   htmlFor="message"
                   className="mb-1.5 block text-sm font-semibold text-gray-700"
                 >
-                  Message <span className="text-green-600">*</span>
+                  Message <span className="text-[#F0A500]">*</span>
                 </label>
                 <textarea
                   id="message"
                   required
                   rows={5}
                   placeholder="Tell us about your project or question…"
-                  className="w-full resize-y rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/20"
+                  className="w-full resize-y rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
                 />
               </div>
 
@@ -265,22 +265,22 @@ export default function ContactPage() {
                   <input
                     type="checkbox"
                     required
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-green-500"
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#F0A500]"
                   />
                   <span>
                     I consent to receive SMS notifications and alerts from SR Energy.
                     Message frequency varies. Message and data rates may apply. Reply{" "}
                     <strong>STOP</strong> to unsubscribe or <strong>HELP</strong> for
                     assistance. You can also call{" "}
-                    <a href={BUSINESS_INFO.phoneTel} className="text-green-600 hover:underline font-medium">
+                    <a href={BUSINESS_INFO.phoneTel} className="text-[#F0A500] hover:underline font-medium">
                       {BUSINESS_INFO.phone}
                     </a>
                     .{" "}
-                    <a href="/privacy-policy/" className="text-green-600 hover:underline font-medium">
+                    <a href="/privacy-policy/" className="text-[#F0A500] hover:underline font-medium">
                       Privacy Policy
                     </a>{" "}
                     &amp;{" "}
-                    <a href="/terms-of-service/" className="text-green-600 hover:underline font-medium">
+                    <a href="/terms-of-service/" className="text-[#F0A500] hover:underline font-medium">
                       Terms of Service
                     </a>
                     .
@@ -293,7 +293,7 @@ export default function ContactPage() {
                 <label className="flex cursor-pointer items-start gap-3 text-xs text-gray-500 leading-relaxed">
                   <input
                     type="checkbox"
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-green-500"
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#F0A500]"
                   />
                   <span>
                     I agree to receive occasional marketing messages from SR Energy.
@@ -304,18 +304,18 @@ export default function ContactPage() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+                className="w-full rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Send Message
               </button>
 
               <p className="text-center text-xs text-gray-400">
                 By submitting you agree to our{" "}
-                <a href="/privacy-policy/" className="text-green-600 hover:underline">
+                <a href="/privacy-policy/" className="text-[#F0A500] hover:underline">
                   Privacy Policy
                 </a>{" "}
                 and{" "}
-                <a href="/terms-of-service/" className="text-green-600 hover:underline">
+                <a href="/terms-of-service/" className="text-[#F0A500] hover:underline">
                   Terms of Service
                 </a>
                 .
@@ -326,9 +326,9 @@ export default function ContactPage() {
       </section>
 
       {/* ── BOTTOM CTA ── */}
-      <section className="bg-gray-900 px-4 py-14 text-center text-white">
+      <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
         <div className="mx-auto max-w-xl">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d4920a]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
             Free Consultation
           </span>
           <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
@@ -340,7 +340,7 @@ export default function ContactPage() {
           </p>
           <a
             href={BUSINESS_INFO.phoneTel}
-            className="mt-8 inline-block rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+            className="mt-8 inline-block rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
           >
             Call {BUSINESS_INFO.phone}
           </a>
@@ -348,7 +348,7 @@ export default function ContactPage() {
             Or email us at{" "}
             <a
               href={BUSINESS_INFO.emailHref}
-              className="text-green-400 hover:text-green-300 transition-colors"
+              className="text-[#F0A500] hover:text-[#fbb82a] transition-colors"
             >
               {BUSINESS_INFO.email}
             </a>

@@ -203,26 +203,26 @@ export default async function StatePage({
         {/* Breadcrumb */}
         <nav
           aria-label="breadcrumb"
-          className="border-b border-gray-100 bg-gray-50 px-4 py-2.5 text-xs text-gray-500"
+          className="border-b border-gray-100 bg-[#111827] px-4 py-2.5 text-xs text-gray-400"
         >
           <ol className="mx-auto flex max-w-5xl items-center gap-1.5">
             <li>
-              <Link href="/" className="hover:text-gray-700 hover:underline">
+              <Link href="/" className="hover:text-gray-200 hover:underline">
                 Home
               </Link>
             </li>
             <li aria-hidden>›</li>
-            <li className="font-medium text-gray-700" aria-current="page">
+            <li className="font-medium text-gray-200" aria-current="page">
               {s.name}
             </li>
           </ol>
         </nav>
 
         {/* Hero */}
-        <section className="bg-gray-900 px-4 py-14 text-white sm:py-18">
+        <section className="bg-[#1e2333] px-4 py-14 text-white sm:py-18">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-3 flex justify-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-green-600/20 px-3 py-1 text-xs font-semibold text-green-400 ring-1 ring-inset ring-green-500/30">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d4920a]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
                 {s.abbr} — No Credit Check Required
               </span>
             </div>
@@ -236,7 +236,7 @@ export default async function StatePage({
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href={`/get-quote?state=${s.abbr}`}
-                className="rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+                className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Get Your Free {s.name} Solar Quote →
               </Link>
@@ -254,9 +254,9 @@ export default async function StatePage({
         </section>
 
         {/* Products */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-6 text-xl font-bold text-white sm:text-2xl">
               Products Available in {s.name}
             </h2>
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -266,20 +266,20 @@ export default async function StatePage({
                     href={p.href}
                     className={`group flex h-full flex-col rounded-xl border px-5 py-5 shadow-sm transition-all hover:shadow-md ${
                       'isVpp' in p && p.isVpp
-                        ? 'border-green-200 bg-green-50 hover:border-green-400'
-                        : 'border-gray-200 bg-white hover:border-green-300'
+                        ? 'border-[#F0A500]/30 bg-[#111827] hover:border-[#F0A500]/30'
+                        : 'border-gray-200 bg-white hover:border-[#F0A500]/30'
                     }`}
                   >
                     <span
                       className={`mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg ${
-                        'isVpp' in p && p.isVpp ? 'bg-green-600 text-white' : 'bg-gray-100 text-green-600 group-hover:bg-green-50'
+                        'isVpp' in p && p.isVpp ? 'bg-[#d4920a] text-white' : 'bg-gray-100 text-[#F0A500] group-hover:bg-[#F0A500]/10'
                       }`}
                     >
                       {p.icon}
                     </span>
                     <span className="text-sm font-bold text-gray-900">{p.label}</span>
                     <span className="mt-1 text-xs text-gray-500 leading-relaxed">{p.description}</span>
-                    <span className="mt-3 text-xs font-medium text-green-600 group-hover:underline">
+                    <span className="mt-3 text-xs font-medium text-[#F0A500] group-hover:underline">
                       Learn more →
                     </span>
                   </Link>
@@ -296,17 +296,17 @@ export default async function StatePage({
               {s.name} Solar Energy Stats
             </h2>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:w-96">
-              <div className="rounded-xl border border-gray-200 bg-gray-50 px-6 py-5 text-center">
-                <p className="text-3xl font-extrabold text-green-600">
+              <div className="rounded-xl border border-gray-200 bg-[#111827] px-6 py-5 text-center">
+                <p className="text-3xl font-extrabold text-[#F0A500]">
                   {(s.avgKwhRate * 100).toFixed(1)}¢
                 </p>
-                <p className="mt-1 text-xs font-medium text-gray-500 uppercase tracking-wide">
+                <p className="mt-1 text-xs font-medium text-gray-400 uppercase tracking-wide">
                   Avg. kWh Rate
                 </p>
               </div>
-              <div className="rounded-xl border border-gray-200 bg-gray-50 px-6 py-5 text-center">
-                <p className="text-3xl font-extrabold text-green-600">{s.peakSunHours}</p>
-                <p className="mt-1 text-xs font-medium text-gray-500 uppercase tracking-wide">
+              <div className="rounded-xl border border-gray-200 bg-[#111827] px-6 py-5 text-center">
+                <p className="text-3xl font-extrabold text-[#F0A500]">{s.peakSunHours}</p>
+                <p className="mt-1 text-xs font-medium text-gray-400 uppercase tracking-wide">
                   Peak Sun Hours / Day
                 </p>
               </div>
@@ -315,12 +315,12 @@ export default async function StatePage({
         </section>
 
         {/* Cities We Serve */}
-        <section className="border-t border-gray-100 bg-gray-50 px-4 py-10">
+        <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-3 text-xl font-bold text-gray-900 sm:text-2xl">
+            <h2 className="mb-3 text-xl font-bold text-white sm:text-2xl">
               Cities We Serve in {s.name}
             </h2>
-            <p className="mb-6 text-sm text-gray-600">
+            <p className="mb-6 text-sm text-gray-400">
               SR Energy provides no-credit-check solar panel installation, home battery storage, and
               EV charger services across the following {s.name} cities. Select any city to see local
               installer availability, product options, and energy savings estimates for your area.
@@ -330,7 +330,7 @@ export default async function StatePage({
                 <li key={city.slug}>
                   <Link
                     href={`/locations/${s.slug}/${city.slug}/`}
-                    className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:border-green-400 hover:text-green-700 transition-colors"
+                    className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:border-[#F0A500]/30 hover:text-[#F0A500] transition-colors"
                   >
                     {city.name}
                     <svg className="h-4 w-4 shrink-0 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -346,13 +346,13 @@ export default async function StatePage({
         {/* Texas VPP callout — Texas only */}
         {s.isVppEligible && (
           <section className="px-4 py-10">
-            <div className="mx-auto max-w-3xl rounded-2xl border border-green-200 bg-green-50 px-6 py-8 sm:px-10">
+            <div className="mx-auto max-w-3xl rounded-2xl border border-[#F0A500]/30 bg-[#111827] px-6 py-8 sm:px-10">
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-green-900 sm:text-2xl">
+                  <h2 className="text-xl font-bold text-white sm:text-2xl">
                     Texas Homeowner? Get a Free Battery.
                   </h2>
-                  <p className="mt-2 max-w-lg text-sm text-green-800">
+                  <p className="mt-2 max-w-lg text-sm text-gray-300">
                     Through Texas&apos;s Virtual Power Plant (VPP) program, eligible homeowners receive
                     a professionally installed home battery at <strong>$0 cost</strong> — no credit
                     check, no lien, 20-year warranty. SR Energy handles installation, monitoring,
@@ -363,7 +363,7 @@ export default async function StatePage({
                       <li key={city.slug}>
                         <Link
                           href={`/locations/texas/${city.slug}/texas-vpp/`}
-                          className="rounded-full border border-green-300 bg-white px-3 py-1 text-xs font-medium text-green-700 hover:border-green-500 hover:bg-green-100 transition-colors"
+                          className="rounded-full border border-[#F0A500]/30 bg-white px-3 py-1 text-xs font-medium text-[#F0A500] hover:border-[#F0A500] hover:bg-[#F0A500]/10 transition-colors"
                         >
                           VPP in {city.name} →
                         </Link>
@@ -373,7 +373,7 @@ export default async function StatePage({
                 </div>
                 <Link
                   href="/products/texas-vpp"
-                  className="shrink-0 rounded-lg bg-green-600 px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-green-500 transition-colors"
+                  className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
                 >
                   Learn About VPP
                 </Link>
@@ -393,7 +393,7 @@ export default async function StatePage({
         </section>
 
         {/* Bottom CTA */}
-        <section className="bg-gray-900 px-4 py-14 text-center text-white">
+        <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
           <div className="mx-auto max-w-xl">
             <h2 className="text-2xl font-bold sm:text-3xl">
               Ready to go solar in {s.name}?
@@ -404,7 +404,7 @@ export default async function StatePage({
             </p>
             <Link
               href={`/get-quote?state=${s.abbr}`}
-              className="mt-6 inline-block rounded-lg bg-green-500 px-8 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+              className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Get Your Free {s.name} Solar Quote →
             </Link>

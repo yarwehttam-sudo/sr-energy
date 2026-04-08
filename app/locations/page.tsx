@@ -57,7 +57,7 @@ export default function LocationsPage() {
   return (
     <main className="min-h-screen bg-white text-gray-900">
       {/* Hero */}
-      <section className="bg-gray-900 px-4 py-16 text-center text-white sm:py-20">
+      <section className="bg-[#1e2333] px-4 py-16 text-center text-white sm:py-20">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
             Solar Installation Locations | SR Energy
@@ -70,7 +70,7 @@ export default function LocationsPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
               href="/get-quote"
-              className="rounded-lg bg-green-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors"
+              className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] focus:outline-none focus:ring-2 focus:ring-[#F0A500] focus:ring-offset-2 focus:ring-offset-[#1e2333] transition-colors"
             >
               Get Your Free Quote
             </Link>
@@ -85,13 +85,13 @@ export default function LocationsPage() {
       </section>
 
       {/* Trust Bar */}
-      <section className="border-b border-gray-200 bg-gray-50 px-4 py-8">
+      <section className="border-b border-gray-200 bg-[#111827] px-4 py-8">
         <div className="mx-auto max-w-4xl">
           <ul className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             {trustItems.map((item) => (
               <li key={item.label} className="flex flex-col items-center gap-2 text-center">
-                <span className="text-green-600">{item.icon}</span>
-                <span className="text-sm font-semibold text-gray-700">{item.label}</span>
+                <span className="text-[#F0A500]">{item.icon}</span>
+                <span className="text-sm font-semibold text-gray-300">{item.label}</span>
               </li>
             ))}
           </ul>
@@ -100,13 +100,13 @@ export default function LocationsPage() {
 
       {/* Texas VPP Callout */}
       <section className="px-4 py-10">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-green-200 bg-green-50 px-6 py-8 sm:px-10">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-[#F0A500]/30 bg-[#111827] px-6 py-8 sm:px-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-xl font-bold text-green-900 sm:text-2xl">
+              <h2 className="text-xl font-bold text-white sm:text-2xl">
                 Texas Homeowner? Get a Free Battery.
               </h2>
-              <p className="mt-2 max-w-lg text-green-800">
+              <p className="mt-2 max-w-lg text-gray-300">
                 Through Texas&apos;s Virtual Power Plant (VPP) program, eligible homeowners can receive a
                 home battery at <strong>no cost</strong>. SR Energy handles the installation — you earn
                 bill credits when the grid needs extra power.
@@ -114,7 +114,7 @@ export default function LocationsPage() {
             </div>
             <Link
               href="/products/texas-vpp"
-              className="shrink-0 rounded-lg bg-green-600 px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-green-500 transition-colors"
+              className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
             >
               Check Eligibility
             </Link>
@@ -138,14 +138,14 @@ export default function LocationsPage() {
               <li key={state.abbr}>
                 <Link
                   href={`/locations/${state.slug}/`}
-                  className="group relative flex flex-col items-start rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm transition-all hover:border-green-400 hover:shadow-md"
+                  className="group relative flex flex-col items-start rounded-xl border border-gray-200 bg-white px-4 py-4 shadow-sm transition-all hover:border-[#F0A500]/30 hover:shadow-md"
                 >
                   {/* Abbreviation badge */}
                   <span
                     className={`mb-2 inline-flex h-9 w-9 items-center justify-center rounded-md text-sm font-bold ${
                       state.isVppEligible
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-100 text-gray-700 group-hover:bg-green-50 group-hover:text-green-700'
+                        ? 'bg-[#d4920a] text-white'
+                        : 'bg-gray-100 text-gray-700 group-hover:bg-[#F0A500]/10 group-hover:text-[#F0A500]'
                     }`}
                   >
                     {state.abbr}
@@ -156,12 +156,12 @@ export default function LocationsPage() {
                   </span>
 
                   {state.isVppEligible && (
-                    <span className="mt-1.5 inline-block rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                    <span className="mt-1.5 inline-block rounded-full bg-[#F0A500]/10 px-2 py-0.5 text-xs font-medium text-[#F0A500]">
                       VPP Eligible
                     </span>
                   )}
 
-                  <span className="mt-2 text-xs text-green-600 group-hover:underline">
+                  <span className="mt-2 text-xs text-[#F0A500] group-hover:underline">
                     View Locations →
                   </span>
                 </Link>
@@ -172,24 +172,24 @@ export default function LocationsPage() {
       </section>
 
       {/* Don't see your city */}
-      <section className="border-t border-gray-100 bg-gray-50 px-4 py-10 text-center">
+      <section className="border-t border-gray-100 bg-[#111827] px-4 py-10 text-center">
         <div className="mx-auto max-w-xl">
-          <h2 className="text-lg font-semibold text-gray-900">Don&apos;t see your city?</h2>
-          <p className="mt-2 text-gray-600">
+          <h2 className="text-lg font-semibold text-white">Don&apos;t see your city?</h2>
+          <p className="mt-2 text-gray-400">
             We&apos;re expanding fast. If your area isn&apos;t listed yet, reach out and we&apos;ll let you
             know when we arrive near you.
           </p>
           <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
             <a
               href={`mailto:${BUSINESS_INFO.email}`}
-              className="text-green-600 font-medium hover:underline"
+              className="text-[#F0A500] font-medium hover:underline"
             >
               {BUSINESS_INFO.email}
             </a>
             <span className="hidden text-gray-400 sm:inline" aria-hidden>·</span>
             <a
               href={`tel:${BUSINESS_INFO.phone.replace(/\D/g, '')}`}
-              className="text-green-600 font-medium hover:underline"
+              className="text-[#F0A500] font-medium hover:underline"
             >
               {BUSINESS_INFO.phone}
             </a>
@@ -198,7 +198,7 @@ export default function LocationsPage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="bg-gray-900 px-4 py-14 text-center text-white">
+      <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
         <div className="mx-auto max-w-xl">
           <h2 className="text-2xl font-bold sm:text-3xl">Ready to go solar?</h2>
           <p className="mt-3 text-gray-300">
@@ -206,7 +206,7 @@ export default function LocationsPage() {
           </p>
           <Link
             href="/get-quote"
-            className="mt-6 inline-block rounded-lg bg-green-500 px-8 py-3 text-base font-semibold text-white shadow hover:bg-green-400 transition-colors"
+            className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
           >
             Get Your Free Quote
           </Link>
