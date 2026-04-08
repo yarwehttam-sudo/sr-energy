@@ -39,16 +39,16 @@ export default function RootLayout({
             <Link href="/" style={{ textDecoration: 'none' }}>
               <div className="logo-pulse" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
                 <div style={{
-                  border: '2px solid #F0A500',
-                  padding: '4px 10px',
+                  border: '2.5px solid #1e2333',
+                  padding: '6px 14px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  minWidth: '64px'
+                  minWidth: '80px'
                 }}>
                   <span style={{
-                    color: '#F0A500',
-                    fontSize: '28px',
+                    color: '#1e2333',
+                    fontSize: '38px',
                     fontWeight: '700',
                     letterSpacing: '4px',
                     lineHeight: 1,
@@ -56,10 +56,10 @@ export default function RootLayout({
                   }}>SR</span>
                 </div>
                 <span style={{
-                  color: '#F0A500',
-                  fontSize: '9px',
+                  color: '#1e2333',
+                  fontSize: '11px',
                   fontWeight: '400',
-                  letterSpacing: '6px',
+                  letterSpacing: '8px',
                   fontFamily: 'Georgia, serif'
                 }}>ENERGY</span>
               </div>
