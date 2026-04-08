@@ -37,7 +37,7 @@ export default function RootLayout({
         <header className="sticky top-0 z-50 bg-[#F0A500] shadow-sm">
           <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between">
             <Link href="/" style={{ textDecoration: 'none' }}>
-              <div className="logo-pulse" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
                 <div style={{
                   border: '2.5px solid #F0A500',
                   padding: '6px 14px',
