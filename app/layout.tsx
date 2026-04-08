@@ -34,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
-        <header className="sticky top-0 z-50 bg-[#F0A500] shadow-sm">
+        <header className="sticky top-0 z-50 bg-[#1e2333] shadow-sm">
           <div className="mx-auto max-w-5xl px-4 py-2 sm:px-6 lg:px-8 flex items-center justify-between">
             <Link href="/" style={{ textDecoration: 'none' }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px' }}>
