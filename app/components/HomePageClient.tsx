@@ -6,6 +6,7 @@ import { BUSINESS_INFO } from '@/lib/businessInfo';
 import SavingsCalculator from '@/app/components/SavingsCalculator';
 import HoneycombHero from '@/app/components/HoneycombHero';
 import ProductCards from '@/app/components/ProductCards';
+import HowItWorks from '@/app/components/HowItWorks';
 
 // Build: force-redeploy-v2
 
@@ -193,6 +194,9 @@ export default function HomePageClient() {
 
       {/* ── Product Cards ── */}
       <ProductCards />
+
+      {/* ── How It Works ── */}
+      <HowItWorks />
 
       {/* ── Savings Calculator ── */}
       <motion.div
