@@ -63,8 +63,12 @@ export async function POST(req: NextRequest) {
       }),
     });
 
+    console.log('Notion response status:', notionRes.status);
+    const responseText = await notionRes.text();
+    console.log('Notion response body:', responseText);
+
     if (!notionRes.ok) {
-      const notionError = await notionRes.json().catch(() => ({}));
+      const notionError = (() => { try { return JSON.parse(responseText); } catch { return {}; } })();
       console.error('Notion API error:', JSON.stringify(notionError, null, 2));
       return NextResponse.json(
         { error: notionError.message || JSON.stringify(notionError) },
