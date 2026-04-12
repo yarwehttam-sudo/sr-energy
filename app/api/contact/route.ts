@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
-const NOTION_API_KEY = process.env.NOTION_API_KEY;
-const DATABASE_ID = 'a254df33-d6e3-487e-9fc1-ebc6f5059900';
+// Notion config kept for later use
+// const NOTION_API_KEY = process.env.NOTION_API_KEY;
+// const DATABASE_ID = 'a254df33-d6e3-487e-9fc1-ebc6f5059900';
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     const { name, phone, email, message, state, monthlyBill, productInterest } =
       await req.json();
 
@@ -15,63 +19,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!NOTION_API_KEY) {
-      console.error('NOTION_API_KEY is not set');
-      return NextResponse.json(
-        { error: 'Server configuration error.' },
-        { status: 500 },
-      );
-    }
+    const productList =
+      Array.isArray(productInterest) && productInterest.length > 0
+        ? productInterest.join(', ')
+        : '—';
 
-    // Build Notion properties — only include optional fields when they have values
-    const properties: Record<string, unknown> = {
-      'Contact Name': { title: [{ text: { content: name } }] },
-      'Email': { email },
-      'Lead Source': { select: { name: 'Website' } },
-      'Pipeline Stage': { select: { name: 'New Lead' } },
-      'Priority': { select: { name: 'Warm' } },
-    };
+    const html = `
+      <h2 style="margin-bottom:16px;font-family:sans-serif;">New Lead — SR Energy Website</h2>
+      <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px;width:100%;max-width:560px;">
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;width:180px;">Name</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${name}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Phone</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${phone || '—'}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Email</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${email}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">State</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${state || '—'}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Monthly Electric Bill</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${monthlyBill ? `$${monthlyBill}` : '—'}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;">Product Interest</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${productList}</td></tr>
+        <tr><td style="padding:8px 12px;background:#f9f9f9;font-weight:600;vertical-align:top;">Message</td><td style="padding:8px 12px;border-bottom:1px solid #eee;white-space:pre-wrap;">${message || '—'}</td></tr>
+      </table>
+    `;
 
-    if (phone) {
-      properties['Phone'] = { phone_number: phone };
-    }
-    if (message) {
-      properties['Notes'] = { rich_text: [{ text: { content: message } }] };
-    }
-    if (state) {
-      properties['State'] = { rich_text: [{ text: { content: state } }] };
-    }
-    if (monthlyBill !== undefined && monthlyBill !== null && monthlyBill !== '') {
-      properties['Monthly Electric Bill'] = { number: Number(monthlyBill) };
-    }
-    if (Array.isArray(productInterest) && productInterest.length > 0) {
-      properties['Product Interest'] = {
-        multi_select: productInterest.map((p: string) => ({ name: p })),
-      };
-    }
-
-    const notionRes = await fetch('https://api.notion.com/v1/pages', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${NOTION_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28',
-      },
-      body: JSON.stringify({
-        parent: { database_id: DATABASE_ID },
-        properties,
-      }),
+    const { error } = await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'JoinUs@SREnergy.US',
+      subject: `New Lead from SR Energy Website - ${name}`,
+      html,
     });
 
-    console.log('Notion response status:', notionRes.status);
-    const responseText = await notionRes.text();
-    console.log('Notion response body:', responseText);
-
-    if (!notionRes.ok) {
-      const notionError = (() => { try { return JSON.parse(responseText); } catch { return {}; } })();
-      console.error('Notion API error:', JSON.stringify(notionError, null, 2));
+    if (error) {
+      console.error('Resend error:', JSON.stringify(error, null, 2));
       return NextResponse.json(
-        { error: notionError.message || JSON.stringify(notionError) },
+        { error: error.message || JSON.stringify(error) },
         { status: 500 },
       );
     }
@@ -84,4 +60,31 @@ export async function POST(req: NextRequest) {
       { status: 500 },
     );
   }
+
+  // ── Notion integration (commented out — fix separately) ──────────────────
+  //
+  // console.log('Notion response status:', notionRes.status);
+  // const responseText = await notionRes.text();
+  // console.log('Notion response body:', responseText);
+  //
+  // if (!notionRes.ok) {
+  //   const notionError = (() => { try { return JSON.parse(responseText); } catch { return {}; } })();
+  //   console.error('Notion API error:', JSON.stringify(notionError, null, 2));
+  //   return NextResponse.json(
+  //     { error: notionError.message || JSON.stringify(notionError) },
+  //     { status: 500 },
+  //   );
+  // }
+  //
+  // Properties mapping:
+  // 'Contact Name': { title: [{ text: { content: name } }] },
+  // 'Email': { email },
+  // 'Phone': { phone_number: phone },
+  // 'Notes': { rich_text: [{ text: { content: message } }] },
+  // 'State': { rich_text: [{ text: { content: state } }] },
+  // 'Monthly Electric Bill': { number: Number(monthlyBill) },
+  // 'Product Interest': { multi_select: productInterest.map((p) => ({ name: p })) },
+  // 'Lead Source': { select: { name: 'Website' } },
+  // 'Pipeline Stage': { select: { name: 'New Lead' } },
+  // 'Priority': { select: { name: 'Warm' } },
 }
