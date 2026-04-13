@@ -181,7 +181,7 @@ export default function USMapHero() {
           import('topojson-client'),
         ]);
 
-        const feats = (topojson as any).feature(us, us.objects.states).features;
+        const feats = (topojson as { feature: Function }).feature(us, us.objects.states).features;
         const projection = geoAlbersUsa().fitSize([960, 600], {
           type: 'FeatureCollection',
           features: feats,
@@ -190,7 +190,7 @@ export default function USMapHero() {
 
         const stateEls: { el: SVGPathElement; cx: number; cy: number }[] = [];
 
-        feats.forEach((f: any) => {
+        feats.forEach((f: { id: string | number }) => {
           const fips = String(f.id).padStart(2, '0');
           const name = FIPS_TO_NAME[fips] || '';
           const d = pathGen(f);
