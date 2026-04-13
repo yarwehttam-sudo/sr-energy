@@ -41,7 +41,7 @@ export default function ContactPage() {
           </h1>
 
           <p className="mt-4 text-base text-gray-400 sm:text-lg">
-            Questions about solar, roofing, or battery storage? Our team is
+            Questions about solar panels, home batteries, or EV chargers? Our team is
             ready to help. Reach out and we&apos;ll get back to you within one
             business day.
           </p>
