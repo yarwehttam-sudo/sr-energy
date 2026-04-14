@@ -239,11 +239,11 @@ export default function ContactForm() {
                 {BUSINESS_INFO.phone}
               </a>
               .{' '}
-              <a href="/contact" className="text-[#F0A500] hover:underline font-medium">
+              <a href="/privacy-policy" className="text-[#F0A500] hover:underline font-medium">
                 Privacy Policy
               </a>{' '}
               &amp;{' '}
-              <a href="/contact" className="text-[#F0A500] hover:underline font-medium">
+              <a href="/terms-of-service" className="text-[#F0A500] hover:underline font-medium">
                 Terms of Service
               </a>
               .
@@ -282,11 +282,11 @@ export default function ContactForm() {
 
         <p className="text-center text-xs text-gray-400">
           By submitting you agree to our{' '}
-          <a href="/contact" className="text-[#F0A500] hover:underline">
+          <a href="/privacy-policy" className="text-[#F0A500] hover:underline">
             Privacy Policy
           </a>{' '}
           and{' '}
-          <a href="/contact" className="text-[#F0A500] hover:underline">
+          <a href="/terms-of-service" className="text-[#F0A500] hover:underline">
             Terms of Service
           </a>
           .
