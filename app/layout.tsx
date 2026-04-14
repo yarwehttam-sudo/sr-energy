@@ -73,6 +73,12 @@ export default function RootLayout({
                 Locations
               </Link>
               <Link
+                href="/how-it-works"
+                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              >
+                How It Works
+              </Link>
+              <Link
                 href="/contact/"
                 className="rounded-lg bg-[#F0A500] px-4 py-1.5 text-sm font-semibold text-white hover:bg-[#fbb82a] transition-colors"
               >

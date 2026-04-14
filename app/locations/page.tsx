@@ -69,24 +69,21 @@ export default function LocationsPage() {
             all with <strong className="text-white">no credit check required</strong>. Find your state below
             and see available installers near you.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] focus:outline-none focus:ring-2 focus:ring-[#F0A500] focus:ring-offset-2 focus:ring-offset-[#1e2333] transition-colors"
-            >
-              Get Your Free Quote
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="rounded-lg border border-gray-500 px-7 py-3 text-base font-semibold text-gray-200 hover:border-gray-300 hover:text-white transition-colors"
-            >
-              How It Works
-            </Link>
-          </div>
+          <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase">Select your state below ↓</p>
         </div>
 
         {/* ── Interactive US Map ── */}
         <USMapHero />
+
+        {/* ── CTA below map stats ── */}
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/contact"
+            className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
+          >
+            Get Your Free Quote
+          </Link>
+        </div>
       </section>
 
       {/* Trust Bar */}

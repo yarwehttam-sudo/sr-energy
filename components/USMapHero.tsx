@@ -128,9 +128,9 @@ export default function USMapHero() {
     const glow = glowRef.current;
     if (!glow) return;
 
-    const duration = 3000;
-    const pause = 2500;
-    const startX = -300;
+    const duration = 3500;
+    const pause = 2000;
+    const startX = -450;
     const endX = 1260;
     let start: number | null = null;
 
@@ -311,17 +311,17 @@ export default function USMapHero() {
             <defs>
               <linearGradient id="glowGrad" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0%" stopColor="#E8C55A" stopOpacity={0} />
-                <stop offset="40%" stopColor="#F0D88A" stopOpacity={0.55} />
-                <stop offset="60%" stopColor="#F0D88A" stopOpacity={0.55} />
+                <stop offset="40%" stopColor="#F0D88A" stopOpacity={0.8} />
+                <stop offset="60%" stopColor="#F0D88A" stopOpacity={0.8} />
                 <stop offset="100%" stopColor="#E8C55A" stopOpacity={0} />
               </linearGradient>
               <clipPath ref={clipRef} id="activeClip" />
             </defs>
             <rect
               ref={glowRef}
-              x={-300}
+              x={-450}
               y={0}
-              width={300}
+              width={450}
               height={600}
               fill="url(#glowGrad)"
               clipPath="url(#activeClip)"
