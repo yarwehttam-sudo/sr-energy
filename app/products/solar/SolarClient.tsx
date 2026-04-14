@@ -248,29 +248,15 @@ export default function SolarClient() {
             className="mb-5 inline-block rounded-full px-4 py-1.5 text-xs font-semibold"
             style={{ background: 'rgba(240,165,0,0.15)', color: '#F0A500' }}
           >
-            Tier 1 Panels · No Credit Check · Permits Included
+            Panels · Inverter · Racking · All Included
           </span>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Solar Panels
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl">
-            Clean energy for your home — installed in as little as one day, with no credit
-            check required. SR Energy handles everything from assessment to activation.
+            Try a New Way to Get Your Energy. Quick and Simple. Installed in as little as one day. SR Energy handles everything from assessment to activation.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/contact"
-              className="rounded-lg bg-[#F0A500] px-8 py-3.5 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
-            >
-              Get a Free Solar Quote
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="rounded-lg border border-gray-600 px-8 py-3.5 text-base font-semibold text-gray-200 hover:border-gray-400 hover:text-white transition-colors"
-            >
-              How It Works
-            </Link>
-          </div>
+          <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase">See how it works below ↓</p>
         </motion.div>
       </section>
 
