@@ -76,7 +76,7 @@ export default function RootLayout({
                 href="/how-it-works"
                 className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
               >
-                How It Works
+                Our Process
               </Link>
               <Link
                 href="/contact/"
