@@ -245,7 +245,7 @@ export default function EvChargerClient() {
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl">
             Charge your EV 7× faster than a standard outlet — at home, overnight, for pennies
-            per mile. Certified installation, permits handled, no credit check.
+            per mile. Certified installation, permits handled.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link

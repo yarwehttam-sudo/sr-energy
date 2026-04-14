@@ -254,8 +254,7 @@ export default function SolarClient() {
             Solar Panels
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl">
-            Clean energy for your home — installed in as little as one day, with no credit
-            check required. SR Energy handles everything from assessment to activation.
+            Clean energy for your home — installed in as little as one day. SR Energy handles everything from assessment to activation.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
