@@ -263,7 +263,7 @@ export default async function CityPage({
             </p>
             <div className="mt-8">
               <Link
-                href={`/get-quote?city=${citySlug}&state=${s.abbr}`}
+                href={`/contact?city=${citySlug}&state=${s.abbr}`}
                 className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Get Your Free {c.name} Quote →
@@ -451,7 +451,7 @@ export default async function CityPage({
               serving {c.name} and the surrounding {s.name} area.
             </p>
             <Link
-              href={`/get-quote?city=${citySlug}&state=${s.abbr}`}
+              href={`/contact?city=${citySlug}&state=${s.abbr}`}
               className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Get Your Free {c.name} Quote →

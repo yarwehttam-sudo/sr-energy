@@ -100,7 +100,7 @@ function buildFaq(s: State) {
 const baseProducts = [
   {
     id: 'solar',
-    href: '/products/solar',
+    href: '/contact',
     label: 'Solar Panels',
     description: 'Tier 1 panels from top manufacturers. Sized for your roof and energy usage.',
     icon: (
@@ -111,7 +111,7 @@ const baseProducts = [
   },
   {
     id: 'battery',
-    href: '/products/battery',
+    href: '/contact',
     label: 'Solar Battery',
     description: 'Keep the lights on during outages. Store excess solar for overnight use.',
     icon: (
@@ -122,7 +122,7 @@ const baseProducts = [
   },
   {
     id: 'ev-charger',
-    href: '/products/ev-charger',
+    href: '/contact',
     label: 'EV Charger',
     description: 'Level 2 home EV charging installed by certified electricians.',
     icon: (
@@ -135,7 +135,7 @@ const baseProducts = [
 
 const vppProduct = {
   id: 'texas-vpp',
-  href: '/products/texas-vpp',
+  href: '/contact',
   label: 'Texas VPP — Free Battery',
   description: 'Eligible TX homeowners get a home battery at no cost through the Virtual Power Plant program.',
   icon: (
@@ -235,7 +235,7 @@ export default async function StatePage({
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
-                href={`/get-quote?state=${s.abbr}`}
+                href={`/contact?state=${s.abbr}`}
                 className="rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
               >
                 Get Your Free {s.name} Solar Quote →
@@ -372,7 +372,7 @@ export default async function StatePage({
                   </ul>
                 </div>
                 <Link
-                  href="/products/texas-vpp"
+                  href="/how-it-works"
                   className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
                 >
                   Learn About VPP
@@ -403,7 +403,7 @@ export default async function StatePage({
               {s.name} installer today.
             </p>
             <Link
-              href={`/get-quote?state=${s.abbr}`}
+              href={`/contact?state=${s.abbr}`}
               className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
               Get Your Free {s.name} Solar Quote →
