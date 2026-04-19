@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 30,
+            "statusMessage": "Auto-committing changes...",
+            "command": "echo \"$(date) hook fired\" >> /tmp/claude-hook-check.txt; if git diff --quiet && git diff --staged --quiet && [ -z \"$(git ls-files --others --exclude-standard)\" ]; then echo '[auto-commit] Working tree clean, skipping.'; exit 0; fi; DATE=$(date +\"%Y-%m-%d\"); BRANCH=$(git branch --show-current); CHANGED=$(git diff --name-only; git diff --staged --name-only; git ls-files --others --exclude-standard | head -10); SUMMARY=$(echo \"$CHANGED\" | sort -u | tr '\\n' ' ' | sed 's/  */ /g' | cut -c1-120); MSG=\"auto: ${DATE} — ${SUMMARY:-changes}\"; git add -A 2>&1 || { echo '[auto-commit ERROR] git add failed' >&2; exit 1; }; git commit -m \"$MSG\" 2>&1 || { echo '[auto-commit ERROR] git commit failed' >&2; exit 1; }; git push origin \"$BRANCH\" 2>&1 || { echo '[auto-commit ERROR] git push failed' >&2; exit 1; }; echo \"[auto-commit] Pushed: $MSG\""
+          }
+        ]
+      }
+    ]
+  }
+}

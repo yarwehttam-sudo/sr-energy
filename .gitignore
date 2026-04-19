@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# enrichment diagnostics — contain real addresses, never commit
+/diagnostics/
