@@ -16,7 +16,7 @@
  * Writes NO data to Notion or the Firecrawl Ops DB.
  * Results are saved to diagnostics/enrichment-test-<timestamp>.json (gitignored).
  *
- * Usage: npx tsx scripts/test-enrichment.ts
+ * Usage: npx tsx scripts/archive/enrichment-diagnostic.ts
  */
 
 import * as readline from 'readline';
