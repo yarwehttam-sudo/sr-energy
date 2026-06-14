@@ -8,11 +8,7 @@ import HoneycombHero from '@/app/components/HoneycombHero';
 import ProductCards from '@/app/components/ProductCards';
 import HowItWorks from '@/app/components/HowItWorks';
 
-// Build: force-redeploy-v2
-
-// ---------------------------------------------------------------------------
-// Animation variants
-// ---------------------------------------------------------------------------
+// Build: force-redeploy-v3
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -29,10 +25,6 @@ const cardFadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' as const } },
 };
 
-// ---------------------------------------------------------------------------
-// Testimonials strip data (duplicated for seamless CSS loop)
-// ---------------------------------------------------------------------------
-
 const testimonials = [
   { name: 'Marcus T.', text: 'My bill dropped by over 60% — and no credit check meant I could actually qualify.' },
   { name: 'Linda R.', text: 'SR Energy was the only company that didn\'t pull my credit just to give me a quote.' },
@@ -42,12 +34,7 @@ const testimonials = [
   { name: 'Rachel M.', text: '13 years of experience shows — every step from permit to flip-the-switch was seamless.' },
 ];
 
-// Double the array so the CSS translation of -50% creates a perfect loop
 const tickerItems = [...testimonials, ...testimonials];
-
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
 
 export default function HomePageClient() {
   return (
@@ -58,7 +45,6 @@ export default function HomePageClient() {
         className="relative px-4 py-14 text-white sm:py-20"
         style={{ backgroundColor: '#1e2333' }}
       >
-        {/* Animated honeycomb background */}
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 0 }}>
           <HoneycombHero />
         </div>
@@ -83,7 +69,7 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0, duration: 0.6, ease: 'easeOut' }}
           >
-            Discover What a Home Energy Upgrade Can Do
+            Go Solar Even If You&rsquo;ve Been Turned Down Before &mdash; No Credit Check, Ever
           </motion.h1>
 
           <motion.p
@@ -93,11 +79,21 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
           >
-            SR Energy helps homeowners upgrade to solar panels, home batteries, and EV chargers.
+            Cut your electric bill up to 85%. SR Energy installs Tier 1 solar across 30+ states &mdash; $0 down, no FICO score required, no obligation.
+          </motion.p>
+
+          <motion.p
+            className="mt-3 text-base text-gray-400 italic"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
+          >
+            Most homeowners assume they won&rsquo;t qualify. We&rsquo;ve never pulled a single credit score.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+            className="mt-8 flex flex-col items-center gap-4"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
@@ -107,103 +103,33 @@ export default function HomePageClient() {
               href="/contact/"
               className="rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
-              Get a Free Quote →
+              See If I Qualify &rarr; (No Credit Check)
             </Link>
-            <a href={BUSINESS_INFO.phoneTel} className="text-sm font-medium text-[#F0A500] hover:underline">
+
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+              <a
+                href="#savings-calculator"
+                className="text-sm font-medium text-[#F0A500] hover:underline"
+              >
+                Show Me My Savings &rarr;
+              </a>
+              <span className="text-gray-600 hidden sm:inline">|</span>
+              <Link
+                href="/locations/"
+                className="text-sm font-medium text-[#F0A500] hover:underline"
+              >
+                Check Incentives in My Area &rarr;
+              </Link>
+            </div>
+
+            <a href={BUSINESS_INFO.phoneTel} className="text-sm font-medium text-gray-400 hover:underline">
               Or call {BUSINESS_INFO.phone}
             </a>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Savings Calculator ── */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <SavingsCalculator />
-      </motion.div>
-
-      {/* ── Product Cards ── */}
-      <ProductCards />
-
-      {/* ── How It Works ── */}
-      <HowItWorks />
-
-      {/* ── Why SR Energy ── */}
-      <section className="bg-[#1e2333] px-4 py-14">
-        <div className="mx-auto max-w-5xl">
-          <motion.h2
-            className="mb-3 text-center text-2xl font-bold text-white sm:text-3xl"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Why SR Energy?
-          </motion.h2>
-          <motion.p
-            className="mb-8 text-center text-base text-gray-400"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            No shortcuts. No gimmicks. Just honest work and equipment that lasts.
-          </motion.p>
-
-          <motion.div
-            className="grid gap-6 sm:grid-cols-3"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
-              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                </svg>
-              </span>
-              <h3 className="text-base font-bold text-white">No Credit Check Required</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-400">
-                We never pull your FICO score. Every homeowner deserves access to clean energy
-                savings regardless of credit history.
-              </p>
-            </motion.div>
-
-            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
-              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-              </span>
-              <h3 className="text-base font-bold text-white">13 Years Experience</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-400">
-                Over a decade of residential solar installations means we know how to get your
-                system permitted, installed, and producing power as fast as possible.
-              </p>
-            </motion.div>
-
-            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
-              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                </svg>
-              </span>
-              <h3 className="text-base font-bold text-white">Tier 1 Equipment</h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-400">
-                We only install industry-leading Tier 1 solar panels, certified home batteries,
-                and Level 2 EV chargers — equipment built to last 25+ years.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── Testimonial ticker strip ── */}
+      {/* ── Social Proof Ticker Strip ── */}
       <div className="overflow-hidden border-y border-[#F0A500]/20 bg-[#1e2333] py-4">
         <div className="ticker-track" aria-hidden="true">
           {tickerItems.map((t, i) => (
@@ -220,7 +146,70 @@ export default function HomePageClient() {
         </div>
       </div>
 
-      {/* ── Services ── */}
+      {/* ── Savings Calculator ── */}
+      <div id="savings-calculator">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <SavingsCalculator />
+        </motion.div>
+      </div>
+
+      {/* ── Full Testimonials ── */}
+      <section className="border-t border-gray-100 bg-gray-50 px-4 py-14">
+        <div className="mx-auto max-w-5xl">
+          <motion.h2
+            className="mb-2 text-center text-2xl font-bold text-gray-900 sm:text-3xl"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            What Our Customers Say
+          </motion.h2>
+          <motion.p
+            className="mb-8 text-center text-sm text-gray-500"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Real homeowners. Real savings. No credit check required.
+          </motion.p>
+
+          <motion.div
+            className="grid gap-6 sm:grid-cols-3"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={i}
+                variants={cardFadeUp}
+                className="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
+                <div className="mb-3 flex gap-0.5">
+                  {[...Array(5)].map((_, j) => (
+                    <span key={j} className="text-[#F0A500]">★</span>
+                  ))}
+                </div>
+                <p className="flex-1 text-sm leading-relaxed text-gray-700">&ldquo;{t.text}&rdquo;</p>
+                <p className="mt-4 text-sm font-semibold text-gray-900">&mdash; {t.name}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Products ── */}
+      <ProductCards />
+
+      {/* ── Services / Locations ── */}
       <section className="border-t border-gray-100 bg-gray-50 px-4 py-14">
         <div className="mx-auto max-w-5xl">
           <motion.h2
@@ -297,13 +286,137 @@ export default function HomePageClient() {
               href="/locations/"
               className="inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
-              Find Your City →
+              Check Incentives in My Area &rarr;
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
+      {/* ── How It Works ── */}
+      <HowItWorks />
+
+      {/* ── Why SR Energy ── */}
+      <section className="bg-[#1e2333] px-4 py-14">
+        <div className="mx-auto max-w-5xl">
+          <motion.h2
+            className="mb-3 text-center text-2xl font-bold text-white sm:text-3xl"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            Why SR Energy?
+          </motion.h2>
+          <motion.p
+            className="mb-8 text-center text-base text-gray-400"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            No shortcuts. No gimmicks. Just honest work and equipment that lasts.
+          </motion.p>
+
+          <motion.div
+            className="grid gap-6 sm:grid-cols-3"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
+              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                </svg>
+              </span>
+              <h3 className="text-base font-bold text-white">No Credit Check Required</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                We never pull your FICO score. Every homeowner deserves access to clean energy
+                savings regardless of credit history.
+              </p>
+            </motion.div>
+
+            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
+              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+              </span>
+              <h3 className="text-base font-bold text-white">13 Years Experience</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                Over a decade of residential solar installations means we know how to get your
+                system permitted, installed, and producing power as fast as possible.
+              </p>
+            </motion.div>
+
+            <motion.div variants={cardFadeUp} className="flex flex-col rounded-xl border border-[#F0A500]/20 bg-[#111827] p-6 shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg">
+              <span className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-[#F0A500]/10 text-[#F0A500]">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+              </span>
+              <h3 className="text-base font-bold text-white">Tier 1 Equipment</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                We only install industry-leading Tier 1 solar panels, certified home batteries,
+                and Level 2 EV chargers — equipment built to last 25+ years.
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Financing Explainer */}
+          <motion.div
+            className="mt-8 rounded-xl border border-[#F0A500]/30 bg-[#111827] px-6 py-5"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <p className="text-sm leading-relaxed text-gray-300">
+              <span className="font-semibold text-[#F0A500]">How our no-credit-check financing works: </span>
+              We partner with solar-specific lenders who qualify homeowners based on home equity and utility history — not FICO scores. Most approvals take less than 24 hours.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Trust Badges ── */}
+      <section className="border-t border-gray-100 bg-gray-50 px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <motion.div
+            className="grid grid-cols-2 gap-4 sm:grid-cols-4"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {[
+              { emoji: '🏆', label: 'Licensed & Insured in All 30+ States' },
+              { emoji: '🔒', label: '25-Year Equipment Warranty' },
+              { emoji: '⭐', label: 'No Credit Check — Ever' },
+              { emoji: '💰', label: '$0 Down Financing Available' },
+            ].map(({ emoji, label }) => (
+              <motion.div
+                key={label}
+                variants={cardFadeUp}
+                className="flex flex-col items-center rounded-xl border border-gray-200 bg-white px-4 py-6 text-center shadow-sm"
+              >
+                <span className="mb-2 text-3xl" aria-hidden="true">{emoji}</span>
+                <span className="text-sm font-semibold text-gray-900">{label}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Urgency Banner ── */}
+      <div className="border-y border-[#F0A500]/40 bg-[#F0A500]/10 px-4 py-3 text-center">
+        <p className="text-sm font-medium text-gray-800">
+          ⚡ The 30% federal solar tax credit is available now — but policy changes are possible. Lock in your rate before it changes.
+        </p>
+      </div>
+
+      {/* ── Final CTA ── */}
       <motion.section
         className="bg-[#1e2333] px-4 py-14 text-center text-white"
         variants={fadeUp}
@@ -323,7 +436,7 @@ export default function HomePageClient() {
             href="/contact/"
             className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
           >
-            Get a Free Quote →
+            Lock In My Free Quote Today &rarr;
           </Link>
           <p className="mt-4 text-sm text-gray-400">
             Or call us:{' '}

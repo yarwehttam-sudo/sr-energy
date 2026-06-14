@@ -266,6 +266,10 @@ export default function SavingsCalculator() {
             <span className="text-gray-400">{paybackYears} years</span>
           </p>
 
+          <p className="mt-1 text-xs text-[#F0A500]/80">
+            *Most homeowners reduce payback to 6–9 years after the 30% federal solar tax credit and local incentives.
+          </p>
+
           <p className="mt-1 text-xs text-gray-600">
             Estimates based on {withBattery ? '95%' : '85%'} bill offset. Actual savings vary by location, usage, and system size.
           </p>
