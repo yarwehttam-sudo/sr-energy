@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
@@ -260,16 +260,19 @@ function AnimatedStat({
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
 
-  if (isInView && count === 0 && value > 0) {
+  useEffect(() => {
+    if (!isInView || value === 0) return;
     const start = performance.now();
+    let raf: number;
     const tick = (now: number) => {
       const p = Math.min((now - start) / 1200, 1);
       const ease = 1 - Math.pow(1 - p, 3);
       setCount(Math.round(ease * value));
-      if (p < 1) requestAnimationFrame(tick);
+      if (p < 1) raf = requestAnimationFrame(tick);
     };
-    requestAnimationFrame(tick);
-  }
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [isInView, value]);
 
   return (
     <motion.div
