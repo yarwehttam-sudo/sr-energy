@@ -70,6 +70,14 @@ const FAQS = [
     a: 'That\'s right — SR Energy does not run a credit check. We believe clean energy should be accessible to every homeowner, regardless of credit score.',
   },
   {
+    q: 'How does financing work without a credit check?',
+    a: 'We work with solar-specific lenders who qualify homeowners based on home equity and utility payment history — not FICO scores. Most homeowners receive approval within 24 hours. $0 down options are available.',
+  },
+  {
+    q: 'What does it cost and how do I pay?',
+    a: 'System costs vary based on home size and energy usage — that\'s why we do a free custom quote first. Most homeowners pay $0 upfront and finance through low monthly payments that are less than their current electric bill.',
+  },
+  {
     q: 'What if my roof needs repairs?',
     a: 'During the site assessment, our technicians will evaluate your roof\'s condition. If repairs are needed before installation, we\'ll let you know upfront and can coordinate the work.',
   },
@@ -310,11 +318,11 @@ export default function HowItWorksClient() {
             Simple. Fast. No Credit Check.
           </motion.span>
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            How It Works
+            From Zero to Solar in as Little as 2 Weeks &mdash; No Credit Check Required
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl max-w-2xl mx-auto">
-            Going solar with SR Energy is easy. Four simple steps from free quote to
-            energy independence — no credit check, no hassle, no hidden fees.
+            Most homeowners assume going solar is complicated. It&rsquo;s not.
+            Here&rsquo;s exactly what happens after you request your free quote.
           </p>
 
           {/* Scroll indicator */}
@@ -364,10 +372,10 @@ export default function HowItWorksClient() {
       <section className="px-4 py-16 border-t border-gray-700/50">
         <div className="mx-auto max-w-4xl">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-            <AnimatedStat value={30} suffix="+" label="States served" delay={0} />
-            <AnimatedStat value={13} suffix="" label="Years experience" delay={0.1} />
-            <AnimatedStat value={0} suffix="" label="Credit checks" delay={0.2} />
-            <AnimatedStat value={1} suffix="" label="Day install" delay={0.3} />
+            <AnimatedStat value={30} suffix="+" label="States Served" delay={0} />
+            <AnimatedStat value={13} suffix="" label="Years Experience" delay={0.1} />
+            <AnimatedStat value={0} suffix="" label="Credit Checks — Ever" delay={0.2} />
+            <AnimatedStat value={1} suffix="" label="Day Install" delay={0.3} />
           </div>
         </div>
       </section>
@@ -413,19 +421,16 @@ export default function HowItWorksClient() {
           <p className="mt-4 text-gray-300 text-lg">
             No credit check. No pressure. Just a free, personalized quote for your home.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-8">
             <Link
               href="/contact"
               className="rounded-lg bg-[#F0A500] px-8 py-3.5 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
-              Get Your Free Quote
+              Get My Free Quote &mdash; No Credit Check &rarr;
             </Link>
-            <Link
-              href="/locations"
-              className="rounded-lg border border-gray-500 px-8 py-3.5 text-base font-semibold text-gray-200 hover:border-gray-300 hover:text-white transition-colors"
-            >
-              View Locations
-            </Link>
+            <p className="mt-4 text-sm text-gray-400">
+              ⚡ A real person will call you within the hour.
+            </p>
           </div>
         </motion.div>
       </section>
