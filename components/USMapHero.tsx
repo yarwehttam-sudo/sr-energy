@@ -38,7 +38,6 @@ const ACTIVE_STATES: Record<string, { cities: number; slug: string }> = {
 };
 
 const TOTAL_STATES = Object.keys(ACTIVE_STATES).length; // 30
-const TOTAL_CITIES = Object.values(ACTIVE_STATES).reduce((s, v) => s + v.cities, 0);
 
 const FIPS_TO_NAME: Record<string, string> = {
   '01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas',
@@ -121,7 +120,8 @@ export default function USMapHero() {
   const glowRafRef = useRef<number>(0);
 
   const stateCount = useAnimatedCount(TOTAL_STATES, 1000, mapReady);
-  const cityCount = useAnimatedCount(TOTAL_CITIES, 1300, mapReady);
+  const cityCount = useAnimatedCount(200, 1300, mapReady);
+  const yearsCount = useAnimatedCount(13, 1100, mapReady);
 
   // ── Glow wave loop ──────────────────────────────────────────────
   const startGlowWave = useCallback(() => {
@@ -335,9 +335,10 @@ export default function USMapHero() {
         {/* Stats */}
         <div className="flex justify-center gap-8 md:gap-12 mt-8 flex-wrap">
           {[
-            { value: stateCount, label: 'States Served' },
-            { value: cityCount, label: 'Cities Available' },
-            { value: 4, label: 'Product Lines' },
+            { value: stateCount, suffix: '+', label: 'States Served' },
+            { value: cityCount, suffix: '+', label: 'Cities Available' },
+            { value: 4, suffix: '', label: 'Product Lines' },
+            { value: yearsCount, suffix: '', label: 'Years Experience' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -348,7 +349,7 @@ export default function USMapHero() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <div className="text-3xl font-bold tabular-nums" style={{ color: '#F0A500' }}>
-                {stat.value}
+                {stat.value}{stat.suffix}
               </div>
               <div className="text-xs mt-1 text-gray-400">{stat.label}</div>
             </motion.div>

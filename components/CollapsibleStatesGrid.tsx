@@ -74,7 +74,7 @@ export default function CollapsibleStatesGrid({ states }: { states: StateItem[] 
                         </span>
                       )}
                       <span className="mt-2 text-xs text-[#F0A500] group-hover:underline">
-                        View Locations →
+                        ☀️ Solar in {state.name} — See Local Incentives →
                       </span>
                     </Link>
                   </li>
@@ -90,7 +90,7 @@ export default function CollapsibleStatesGrid({ states }: { states: StateItem[] 
             <ul>
               {states.map((state) => (
                 <li key={state.abbr}>
-                  <Link href={`/locations/${state.slug}/`}>{state.name} solar installation</Link>
+                  <Link href={`/locations/${state.slug}/`}>☀️ Solar in {state.name} — See Local Incentives →</Link>
                 </li>
               ))}
             </ul>

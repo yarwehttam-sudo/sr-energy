@@ -62,12 +62,11 @@ export default function LocationsPage() {
       <section className="bg-[#1e2333] px-4 py-16 text-center text-white sm:py-20">
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-            Solar Installation Locations | SR Energy
+            Find Solar Installers Near You — No Credit Check Required
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl">
-            SR Energy helps homeowners across the US go solar, add battery backup, and charge their EVs —
-            all with <strong className="text-white">no credit check required</strong>. Find your state below
-            and see available installers near you.
+            SR Energy serves homeowners across 30 states. Find your state below to see local incentives,
+            pricing, and available installers in your area.
           </p>
           <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase">Select your state below ↓</p>
         </div>
@@ -113,6 +112,9 @@ export default function LocationsPage() {
                 home battery at <strong>no cost</strong>. SR Energy handles the installation — you earn
                 bill credits when the grid needs extra power.
               </p>
+              <p className="mt-2 text-sm font-medium text-[#F0A500]">
+                ⚡ Limited slots available — VPP program fills fast.
+              </p>
             </div>
             <Link
               href="/locations/texas/houston/texas-vpp"
@@ -134,27 +136,35 @@ export default function LocationsPage() {
         }))}
       />
 
-      {/* Don't see your city */}
+      {/* Not seeing your city yet? */}
       <section className="border-t border-gray-100 bg-[#111827] px-4 py-10 text-center">
         <div className="mx-auto max-w-xl">
-          <h2 className="text-lg font-semibold text-white">Don&apos;t see your city?</h2>
+          <h2 className="text-lg font-semibold text-white">Not seeing your city yet?</h2>
           <p className="mt-2 text-gray-400">
-            We&apos;re expanding fast. If your area isn&apos;t listed yet, reach out and we&apos;ll let you
-            know when we arrive near you.
+            We&apos;re expanding fast — and we may already serve your area.
+            Call us or drop your info and we&apos;ll confirm coverage within the hour.
           </p>
-          <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
-            <a
-              href={`mailto:${BUSINESS_INFO.email}`}
-              className="text-[#F0A500] font-medium hover:underline"
+          <div className="mt-5">
+            <Link
+              href="/contact"
+              className="inline-block rounded-lg bg-[#F0A500] px-6 py-3 text-sm font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
             >
-              {BUSINESS_INFO.email}
-            </a>
-            <span className="hidden text-gray-400 sm:inline" aria-hidden>·</span>
+              Check My Area →
+            </Link>
+          </div>
+          <div className="mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
             <a
               href={`tel:${BUSINESS_INFO.phone.replace(/\D/g, '')}`}
               className="text-[#F0A500] font-medium hover:underline"
             >
               {BUSINESS_INFO.phone}
+            </a>
+            <span className="hidden text-gray-400 sm:inline" aria-hidden>·</span>
+            <a
+              href={`mailto:${BUSINESS_INFO.email}`}
+              className="text-[#F0A500] font-medium hover:underline"
+            >
+              {BUSINESS_INFO.email}
             </a>
           </div>
         </div>
@@ -171,8 +181,11 @@ export default function LocationsPage() {
             href="/contact"
             className="mt-6 inline-block rounded-lg bg-[#F0A500] px-8 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors"
           >
-            Get Your Free Quote
+            Get My Free Quote — No Credit Check →
           </Link>
+          <p className="mt-4 text-sm text-gray-400">
+            ⚡ A real person will call you within the hour.
+          </p>
         </div>
       </section>
     </main>
