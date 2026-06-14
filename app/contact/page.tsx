@@ -37,13 +37,11 @@ export default function ContactPage() {
           </span>
 
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl lg:text-5xl">
-            Contact SR Energy
+            Get Your Free Solar Quote &mdash; Takes About 60 Seconds
           </h1>
 
           <p className="mt-4 text-base text-gray-400 sm:text-lg">
-            Questions about solar panels, home batteries, or EV chargers? Our team is
-            ready to help. Reach out and we&apos;ll get back to you within one
-            business day.
+            No credit check. No obligation. A real person from our team will call you within the hour.
           </p>
         </div>
       </section>
@@ -156,30 +154,60 @@ export default function ContactPage() {
 
       {/* ── CONTACT FORM ── */}
       <section className="border-t border-gray-100 bg-[#111827] px-4 py-10">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <div className="mb-8 text-center">
             <h2 className="text-xl font-bold text-white sm:text-2xl">Send Us a Message</h2>
             <p className="mt-2 text-sm text-gray-400">
-              Fill out the form below and our team will reach out within one business day.
+              Fill out the form below and a real specialist will call you within the hour.
             </p>
           </div>
 
-          <ContactForm />
+          <div className="grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-start">
+
+            {/* Social proof — above form on mobile, right column on desktop */}
+            <div className="order-first lg:order-last">
+              <div className="rounded-xl border border-[#F0A500]/30 bg-[#1e2333] p-6">
+                <div className="mb-3 flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-[#F0A500] text-sm">★</span>
+                  ))}
+                </div>
+                <p className="text-sm leading-relaxed text-gray-300 italic">
+                  &ldquo;I filled out the form at 9am and had a call by 9:45. No credit check, no pressure &mdash; just answers.&rdquo;
+                </p>
+                <p className="mt-4 text-sm font-semibold text-white">&mdash; James O., verified customer</p>
+
+                <div className="mt-6 space-y-2 border-t border-[#F0A500]/20 pt-5">
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <span className="text-[#F0A500]">✓</span> No credit check — ever
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <span className="text-[#F0A500]">✓</span> Real person calls within the hour
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <span className="text-[#F0A500]">✓</span> Zero obligation
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Form */}
+            <div className="order-last lg:order-first">
+              <ContactForm />
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* ── BOTTOM CTA ── */}
       <section className="bg-[#1e2333] px-4 py-14 text-center text-white">
         <div className="mx-auto max-w-xl">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#d4920a]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
-            Free Consultation
-          </span>
-          <h2 className="mt-4 text-3xl font-bold sm:text-4xl">
-            Ready to Go Solar?
+          <h2 className="text-3xl font-bold sm:text-4xl">
+            Prefer to talk now?
           </h2>
           <p className="mt-3 text-gray-400">
-            Join thousands of homeowners saving on energy. Call us today for your
-            free no-obligation quote.
+            Our solar specialists are standing by.
           </p>
           <a
             href={BUSINESS_INFO.phoneTel}
@@ -187,15 +215,6 @@ export default function ContactPage() {
           >
             Call {BUSINESS_INFO.phone}
           </a>
-          <p className="mt-4 text-sm text-gray-500">
-            Or email us at{" "}
-            <a
-              href={BUSINESS_INFO.emailHref}
-              className="text-[#F0A500] hover:text-[#fbb82a] transition-colors"
-            >
-              {BUSINESS_INFO.email}
-            </a>
-          </p>
         </div>
       </section>
 

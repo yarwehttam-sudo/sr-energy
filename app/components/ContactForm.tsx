@@ -28,8 +28,7 @@ export default function ContactForm() {
   const [monthlyBill, setMonthlyBill] = useState('');
   const [productInterest, setProductInterest] = useState<string[]>([]);
   const [message, setMessage] = useState('');
-  const [smsConsent, setSmsConsent] = useState(false);
-  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [consent, setConsent] = useState(false);
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -81,9 +80,9 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-gray-900">Message Received!</h3>
+        <h3 className="text-xl font-bold text-gray-900">Quote Request Received!</h3>
         <p className="mt-2 text-sm text-gray-600">
-          Thank you! We will contact you within 24 hours.
+          A real person from our team will call you within the hour. No credit check. No pressure.
         </p>
       </div>
     );
@@ -91,6 +90,12 @@ export default function ContactForm() {
 
   return (
     <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8">
+
+      {/* Privacy assurance */}
+      <p className="mb-5 text-xs font-medium text-gray-500">
+        🔒 Your info is private. We never pull your credit score &mdash; ever.
+      </p>
+
       <form onSubmit={handleSubmit} className="space-y-5">
 
         {/* Name + Phone */}
@@ -111,11 +116,12 @@ export default function ContactForm() {
           </div>
           <div>
             <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-gray-700">
-              Phone Number
+              Phone Number <span className="text-[#F0A500]">*</span>
             </label>
             <input
               id="phone"
               type="tel"
+              required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="(555) 000-0000"
@@ -208,59 +214,39 @@ export default function ContactForm() {
         {/* Message */}
         <div>
           <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-gray-700">
-            Message <span className="text-[#F0A500]">*</span>
+            Message
           </label>
           <textarea
             id="message"
-            required
-            rows={5}
+            rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell us about your home or any questions you have…"
+            placeholder="Optional — anything you&apos;d like us to know before we call?"
             className="w-full resize-y rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/20"
           />
         </div>
 
-        {/* SMS Consent */}
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-          <label className="flex cursor-pointer items-start gap-3 text-xs text-gray-600 leading-relaxed">
+        {/* Consent — single collapsed checkbox */}
+        <div className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+          <label className="flex cursor-pointer items-start gap-2.5 leading-relaxed">
             <input
               type="checkbox"
               required
-              checked={smsConsent}
-              onChange={(e) => setSmsConsent(e.target.checked)}
-              className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#F0A500]"
+              checked={consent}
+              onChange={(e) => setConsent(e.target.checked)}
+              className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 accent-[#F0A500]"
             />
-            <span>
-              I consent to receive SMS notifications and alerts from SR Energy. Message frequency
-              varies. Message and data rates may apply. Reply <strong>STOP</strong> to unsubscribe
-              or <strong>HELP</strong> for assistance. You can also call{' '}
-              <a href={BUSINESS_INFO.phoneTel} className="text-[#F0A500] hover:underline font-medium">
-                {BUSINESS_INFO.phone}
-              </a>
-              .{' '}
+            <span className="text-xs text-gray-500">
+              By submitting, I agree to receive calls and SMS from SR Energy about my quote request.
+              Reply <strong>STOP</strong> to opt out.{' '}
               <a href="/privacy-policy" className="text-[#F0A500] hover:underline font-medium">
                 Privacy Policy
-              </a>{' '}
-              &amp;{' '}
+              </a>
+              {' '}|{' '}
               <a href="/terms-of-service" className="text-[#F0A500] hover:underline font-medium">
                 Terms of Service
               </a>
-              .
             </span>
-          </label>
-        </div>
-
-        {/* Marketing consent */}
-        <div>
-          <label className="flex cursor-pointer items-start gap-3 text-xs text-gray-500 leading-relaxed">
-            <input
-              type="checkbox"
-              checked={marketingConsent}
-              onChange={(e) => setMarketingConsent(e.target.checked)}
-              className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#F0A500]"
-            />
-            <span>I agree to receive occasional marketing messages from SR Energy.</span>
           </label>
         </div>
 
@@ -271,26 +257,22 @@ export default function ContactForm() {
           </div>
         )}
 
+        {/* Trust strip */}
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-gray-500">
+          <span>✅ No Credit Check</span>
+          <span>✅ Response Within the Hour</span>
+          <span>✅ No Obligation, Ever</span>
+        </div>
+
         {/* Submit */}
         <button
           type="submit"
           disabled={status === 'submitting'}
           className="w-full rounded-lg bg-[#F0A500] px-7 py-3 text-base font-semibold text-white shadow hover:bg-[#fbb82a] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {status === 'submitting' ? 'Sending…' : 'Send Message'}
+          {status === 'submitting' ? 'Sending…' : 'Get My Free Quote — No Credit Check →'}
         </button>
 
-        <p className="text-center text-xs text-gray-400">
-          By submitting you agree to our{' '}
-          <a href="/privacy-policy" className="text-[#F0A500] hover:underline">
-            Privacy Policy
-          </a>{' '}
-          and{' '}
-          <a href="/terms-of-service" className="text-[#F0A500] hover:underline">
-            Terms of Service
-          </a>
-          .
-        </p>
       </form>
     </div>
   );
