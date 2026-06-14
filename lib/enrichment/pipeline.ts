@@ -87,9 +87,6 @@ export async function enrichLead(
       }
     });
 
-    // Combined markdown is available here for future markdown-based extraction (Step 9)
-    const _combinedMarkdown = markdownParts.join('\n\n---\n\n');
-
     const extractResults = await Promise.allSettled(
       successfulEntries.map((e) =>
         firecrawl.extract<PropertyEnrichment>({

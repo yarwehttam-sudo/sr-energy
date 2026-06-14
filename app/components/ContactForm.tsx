@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { BUSINESS_INFO } from '@/lib/businessInfo';
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
