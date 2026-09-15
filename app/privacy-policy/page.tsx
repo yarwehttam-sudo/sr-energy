@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
             <ul className="list-disc pl-6 space-y-2 mb-3">
               <li>Quote confirmations and follow-up messages.</li>
               <li>Appointment reminders for site assessments or installations.</li>
-              <li>Program updates related to Texas VPP eligibility or other offers.</li>
+              <li>Program updates related to product eligibility or other offers.</li>
               <li>Occasional promotional messages (only with explicit marketing consent).</li>
             </ul>
             <p className="mb-3">

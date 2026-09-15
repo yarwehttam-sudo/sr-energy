@@ -22,11 +22,6 @@ const PRODUCTS: Record<string, { label: string; description: string; details: st
     description: 'Level 2 home EV charging installed by certified electricians.',
     details: 'SR Energy installs Level 2 EV chargers for all major electric vehicle brands. Our certified electricians handle the full installation including panel upgrades if needed. No credit check required — get a free quote today.',
   },
-  'texas-vpp': {
-    label: 'Texas VPP — Free Battery',
-    description: 'Eligible TX homeowners receive a home battery at no cost via the Virtual Power Plant program.',
-    details: 'The Texas Virtual Power Plant (VPP) program provides eligible homeowners with a professionally installed home battery at no cost. SR Energy manages installation, monitoring, and maintenance for the full program term. The battery is yours to keep at the end.',
-  },
 };
 
 export function generateStaticParams() {

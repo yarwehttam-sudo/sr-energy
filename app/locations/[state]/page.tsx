@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   const title = `No-FICO Solar in ${s.name} | SR Energy`;
   const description = s.isVppEligible
-    ? `No credit check solar in ${s.name}. SR Energy installs Tier 1 panels, batteries & offers the free Texas VPP battery program. Serving ${cityList} and more.`
+    ? `No credit check solar in ${s.name}. SR Energy installs Tier 1 solar panels, home batteries & EV chargers — free quote, no FICO score required. Serving ${cityList} and more.`
     : `No credit check solar in ${s.name}. SR Energy installs Tier 1 solar panels, home batteries & EV chargers — free quote, no FICO score required. Serving ${cityList} and more.`;
   const url = `https://srenergy.com/locations/${stateSlug}/`;
 
@@ -72,7 +72,7 @@ function buildFaq(s: State) {
   return [
     {
       q: `Does SR Energy require a credit check for solar in ${s.name}?`,
-      a: `No. SR Energy offers no-FICO solar financing across all 30 states we serve, including ${s.name}. Your credit score is never a factor in qualifying for a solar installation. We evaluate your home's energy profile, roof condition, and utility bills — not your FICO score.`,
+      a: `No. SR Energy offers no-FICO solar financing in the PPA-authorized markets we serve, including ${s.name}. Your credit score is never a factor in qualifying for a solar installation. We evaluate your home's energy profile, roof condition, and utility bills — not your FICO score.`,
     },
     {
       q: `How much can a ${s.name} homeowner save with solar panels?`,
@@ -133,18 +133,6 @@ const baseProducts = [
   },
 ];
 
-const vppProduct = {
-  id: 'texas-vpp',
-  href: '/contact',
-  label: 'Texas VPP — Free Battery',
-  description: 'Eligible TX homeowners get a home battery at no cost through the Virtual Power Plant program.',
-  icon: (
-    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-    </svg>
-  ),
-  isVpp: true,
-};
 
 // ---------------------------------------------------------------------------
 // Page
@@ -159,7 +147,7 @@ export default async function StatePage({
   const s = STATES.find((s) => s.slug === stateSlug);
   if (!s) notFound();
 
-  const products = s.isVppEligible ? [...baseProducts, vppProduct] : baseProducts;
+  const products = baseProducts;
   const faqItems = buildFaq(s);
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Home', url: 'https://srenergy.com/' },
@@ -231,7 +219,6 @@ export default async function StatePage({
             </h1>
             <p className="mt-4 text-lg text-gray-300">
               Free quotes · Tier 1 panels · Battery storage · EV chargers
-              {s.isVppEligible && ' · Free battery via TX VPP'}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
@@ -342,45 +329,6 @@ export default async function StatePage({
             </ul>
           </div>
         </section>
-
-        {/* Texas VPP callout — Texas only */}
-        {s.isVppEligible && (
-          <section className="px-4 py-10">
-            <div className="mx-auto max-w-3xl rounded-2xl border border-[#F0A500]/30 bg-[#111827] px-6 py-8 sm:px-10">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h2 className="text-xl font-bold text-white sm:text-2xl">
-                    Texas Homeowner? Get a Free Battery.
-                  </h2>
-                  <p className="mt-2 max-w-lg text-sm text-gray-300">
-                    Through Texas&apos;s Virtual Power Plant (VPP) program, eligible homeowners receive
-                    a professionally installed home battery at <strong>$0 cost</strong> — no credit
-                    check, no lien, 20-year warranty. SR Energy handles installation, monitoring,
-                    and maintenance for the life of the program.
-                  </p>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {s.cities.map((city) => (
-                      <li key={city.slug}>
-                        <Link
-                          href={`/locations/texas/${city.slug}/texas-vpp/`}
-                          className="rounded-full border border-[#F0A500]/30 bg-white px-3 py-1 text-xs font-medium text-[#F0A500] hover:border-[#F0A500] hover:bg-[#F0A500]/10 transition-colors"
-                        >
-                          VPP in {city.name} →
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <Link
-                  href="/how-it-works"
-                  className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
-                >
-                  Learn About VPP
-                </Link>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* FAQ */}
         <section className="px-4 py-10">

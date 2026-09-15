@@ -96,7 +96,6 @@ const STATS = [
   { value: '10–13 kWh', label: 'Typical battery capacity' },
   { value: '<50 ms', label: 'Outage switchover time' },
   { value: '10 yrs', label: 'Standard warranty' },
-  { value: '$0', label: 'TX VPP eligible installs' },
 ];
 
 const FAQS = [
@@ -111,10 +110,6 @@ const FAQS = [
   {
     q: 'Can I get a battery without having solar panels?',
     a: 'Yes. A home battery operates independently of solar. It charges from the grid during off-peak hours and discharges when rates are high or the grid goes down. Many customers start with battery-only and add solar later.',
-  },
-  {
-    q: 'What is the Texas VPP program?',
-    a: 'The Texas Virtual Power Plant (VPP) program provides eligible homeowners with a professionally installed home battery at no cost. SR Energy enrolls your battery in a voluntary grid-support network, and you keep backup power priority. After 20 years, the battery is yours permanently. No credit check required.',
   },
 ];
 
@@ -350,7 +345,7 @@ export default function BatteryClient() {
         >
           <h2 className="text-3xl font-bold sm:text-4xl">Ready to add backup power?</h2>
           <p className="mt-4 text-lg text-gray-300">
-            No credit check. No pressure. Texas homeowners may qualify for a free battery.
+            No credit check. No pressure. Add backup power without a separate solar requirement.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link

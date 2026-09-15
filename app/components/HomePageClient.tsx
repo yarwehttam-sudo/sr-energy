@@ -58,7 +58,7 @@ export default function HomePageClient() {
             transition={{ delay: 0 }}
           >
             <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F0A500]/20 px-3 py-1 text-xs font-semibold text-[#F0A500] ring-1 ring-inset ring-[#F0A500]/30">
-              No Credit Check Required — 30+ States Served
+              No Credit Check Required — 19 PPA Markets Served
             </span>
           </motion.div>
 
@@ -79,7 +79,7 @@ export default function HomePageClient() {
             animate="visible"
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
           >
-            Cut your electric bill up to 85%. SR Energy installs Tier 1 solar across 30+ states &mdash; $0 down, no FICO score required, no obligation.
+            Cut your electric bill up to 85%. SR Energy installs Tier 1 solar in PPA-authorized markets &mdash; $0 down, no FICO score required, no obligation.
           </motion.p>
 
           <motion.p
@@ -391,7 +391,7 @@ export default function HomePageClient() {
             viewport={{ once: true }}
           >
             {[
-              { emoji: '🏆', label: 'Licensed & Insured in All 30+ States' },
+              { emoji: '🏆', label: 'Serving 19 PPA Markets' },
               { emoji: '🔒', label: '25-Year Equipment Warranty' },
               { emoji: '⭐', label: 'No Credit Check — Ever' },
               { emoji: '💰', label: '$0 Down Financing Available' },

@@ -7,7 +7,7 @@ import CollapsibleStatesGrid from '@/components/CollapsibleStatesGrid';
 
 const HUB_TITLE = 'Solar Installation Locations | SR Energy';
 const HUB_DESCRIPTION =
-  'SR Energy serves homeowners across 30 states with no-credit-check solar panels, batteries, and EV chargers. Find your state and get a free quote — no FICO score required.';
+  'SR Energy serves homeowners in authorized PPA states with no-credit-check solar panels, batteries, and EV chargers. Find your state and get a free quote — no FICO score required.';
 
 export const metadata: Metadata = {
   title: HUB_TITLE,
@@ -27,7 +27,7 @@ const trustItems = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
       </svg>
     ),
-    label: '30 States Served',
+    label: '19 PPA Markets Served',
   },
   {
     icon: (
@@ -65,7 +65,7 @@ export default function LocationsPage() {
             Find Solar Installers Near You — No Credit Check Required
           </h1>
           <p className="mt-5 text-lg text-gray-300 sm:text-xl">
-            SR Energy serves homeowners across 30 states. Find your state below to see local incentives,
+            SR Energy serves homeowners in the PPA-authorized markets listed below. Find your state to see local incentives,
             pricing, and available installers in your area.
           </p>
           <p className="mt-8 text-sm text-gray-400 tracking-widest uppercase">Select your state below ↓</p>
@@ -96,33 +96,6 @@ export default function LocationsPage() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* Texas VPP Callout */}
-      <section className="px-4 py-10">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-[#F0A500]/30 bg-[#111827] px-6 py-8 sm:px-10">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-white sm:text-2xl">
-                Texas Homeowner? Get a Free Battery.
-              </h2>
-              <p className="mt-2 max-w-lg text-gray-300">
-                Through Texas&apos;s Virtual Power Plant (VPP) program, eligible homeowners can receive a
-                home battery at <strong>no cost</strong>. SR Energy handles the installation — you earn
-                bill credits when the grid needs extra power.
-              </p>
-              <p className="mt-2 text-sm font-medium text-[#F0A500]">
-                ⚡ Limited slots available — VPP program fills fast.
-              </p>
-            </div>
-            <Link
-              href="/locations/texas/houston/texas-vpp"
-              className="shrink-0 rounded-lg bg-[#d4920a] px-6 py-3 text-center text-sm font-semibold text-white shadow hover:bg-[#F0A500] transition-colors"
-            >
-              Check Eligibility
-            </Link>
-          </div>
         </div>
       </section>
 

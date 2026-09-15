@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | SR Energy",
   },
   description:
-    "SR Energy installs solar panels, home batteries, and EV chargers across 30 states — no credit check required. Get a free quote today.",
+    "SR Energy installs solar panels, home batteries, and EV chargers in authorized PPA markets — no credit check required. Get a free quote today.",
   metadataBase: new URL("https://srenergy.com"),
 };
 

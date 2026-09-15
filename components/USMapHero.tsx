@@ -2,42 +2,15 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { STATES } from '@/lib/locations';
 
-// ── Active service states — matches lib/locations.ts exactly ────────
-const ACTIVE_STATES: Record<string, { cities: number; slug: string }> = {
-  Arkansas: { cities: 4, slug: 'arkansas' },
-  California: { cities: 5, slug: 'california' },
-  Colorado: { cities: 5, slug: 'colorado' },
-  Connecticut: { cities: 4, slug: 'connecticut' },
-  Delaware: { cities: 4, slug: 'delaware' },
-  Georgia: { cities: 5, slug: 'georgia' },
-  Hawaii: { cities: 5, slug: 'hawaii' },
-  Illinois: { cities: 5, slug: 'illinois' },
-  Iowa: { cities: 4, slug: 'iowa' },
-  Maine: { cities: 4, slug: 'maine' },
-  Maryland: { cities: 5, slug: 'maryland' },
-  Massachusetts: { cities: 5, slug: 'massachusetts' },
-  Michigan: { cities: 5, slug: 'michigan' },
-  Montana: { cities: 4, slug: 'montana' },
-  Nebraska: { cities: 4, slug: 'nebraska' },
-  Nevada: { cities: 5, slug: 'nevada' },
-  'New Hampshire': { cities: 4, slug: 'new-hampshire' },
-  'New Jersey': { cities: 5, slug: 'new-jersey' },
-  'New Mexico': { cities: 4, slug: 'new-mexico' },
-  'New York': { cities: 5, slug: 'new-york' },
-  Ohio: { cities: 5, slug: 'ohio' },
-  Oregon: { cities: 5, slug: 'oregon' },
-  Pennsylvania: { cities: 5, slug: 'pennsylvania' },
-  'Rhode Island': { cities: 4, slug: 'rhode-island' },
-  Texas: { cities: 5, slug: 'texas' },
-  Utah: { cities: 5, slug: 'utah' },
-  Vermont: { cities: 4, slug: 'vermont' },
-  Virginia: { cities: 5, slug: 'virginia' },
-  Washington: { cities: 5, slug: 'washington' },
-  'West Virginia': { cities: 4, slug: 'west-virginia' },
-};
+// ── Active service states — derived from lib/locations.ts ────────
+const ACTIVE_STATES: Record<string, { cities: number; slug: string }> = Object.fromEntries(
+  STATES.map((state) => [state.name, { cities: state.cities.length, slug: state.slug }])
+);
 
-const TOTAL_STATES = Object.keys(ACTIVE_STATES).length; // 30
+const TOTAL_STATES = STATES.length;
+const TOTAL_CITIES = STATES.reduce((sum, state) => sum + state.cities.length, 0);
 
 const FIPS_TO_NAME: Record<string, string> = {
   '01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas',
@@ -120,7 +93,7 @@ export default function USMapHero() {
   const glowRafRef = useRef<number>(0);
 
   const stateCount = useAnimatedCount(TOTAL_STATES, 1000, mapReady);
-  const cityCount = useAnimatedCount(200, 1300, mapReady);
+  const cityCount = useAnimatedCount(TOTAL_CITIES, 1300, mapReady);
   const yearsCount = useAnimatedCount(13, 1100, mapReady);
 
   // ── Glow wave loop ──────────────────────────────────────────────
@@ -335,7 +308,7 @@ export default function USMapHero() {
         {/* Stats */}
         <div className="flex justify-center gap-8 md:gap-12 mt-8 flex-wrap">
           {[
-            { value: stateCount, suffix: '+', label: 'States Served' },
+            { value: stateCount, suffix: '', label: 'PPA Markets' },
             { value: cityCount, suffix: '+', label: 'Cities Available' },
             { value: 4, suffix: '', label: 'Product Lines' },
             { value: yearsCount, suffix: '', label: 'Years Experience' },

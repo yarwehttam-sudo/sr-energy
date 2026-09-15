@@ -91,7 +91,7 @@ const FAQS = [
   },
   {
     q: 'Which states do you serve?',
-    a: 'SR Energy currently serves homeowners in 30 states across the US. Visit our Locations page to see if your area is covered.',
+    a: 'SR Energy currently serves homeowners in 19 PPA-authorized markets. Visit our Locations page to see if your area is covered.',
   },
 ];
 

@@ -4,7 +4,7 @@ import BatteryClient from './BatteryClient';
 export const metadata: Metadata = {
   title: 'Home Battery Storage | SR Energy',
   description:
-    'Keep the lights on when the grid goes out. SR Energy installs home battery systems — no credit check, no solar required. Texas VPP eligible homes get one free.',
+    'Keep the lights on when the grid goes out. SR Energy installs home battery systems — no credit check and no solar required.',
   alternates: { canonical: 'https://srenergy.com/products/battery/' },
   openGraph: {
     title: 'Home Battery Storage | SR Energy',

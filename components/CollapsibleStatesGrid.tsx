@@ -37,7 +37,7 @@ export default function CollapsibleStatesGrid({ states }: { states: StateItem[] 
           </motion.svg>
         </button>
         <p className="mt-2 mb-4 text-center text-gray-600 text-sm">
-          Click to browse all 30 states we serve
+          Click to browse the PPA-authorized markets we serve
         </p>
 
         <AnimatePresence>
