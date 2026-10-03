@@ -1,0 +1,31 @@
+{
+  "evidence_date": "2026-10-03 UTC",
+  "candidate_sha": "b92159f9fb7febccd131c0fd1e14735a8501292b",
+  "origin_main_sha": "e83d18cc8fddf27f36aa11b0ea59e1b3be0279c7",
+  "branch": "seo/prelaunch-acquisition",
+  "production_deployed": false,
+  "sitemap_status": 200,
+  "sitemap_url_count": 182,
+  "route_failures": [],
+  "canonical_failures": [],
+  "schema_json_failures": [],
+  "main_h1_failures": [],
+  "internal_links_checked": 596,
+  "internal_link_failures": [],
+  "invalid_form_status": 400,
+  "build": {
+    "status": "PASS",
+    "static_pages_generated": 738,
+    "homepage_first_load_js_kb": 98.6,
+    "product_first_load_js_kb": 98.6,
+    "contact_first_load_js_kb": 89.9,
+    "shared_first_load_js_kb": 87.2
+  },
+  "limitations": [
+    "No authenticated Google Search Console or backlink export was available.",
+    "No paid DataForSEO/OpenSEO volume, rank, CPC or difficulty export was available.",
+    "No signed SR Energy program, financing, warranty, ownership or VPP documentation was available.",
+    "No production CrUX, Lighthouse or other numeric Core Web Vitals evidence was available.",
+    "No browser automation package or local browser executable was available; accessibility and responsive checks were limited to static semantics, responsive class guards, server-rendered output, build output and HTTP crawling."
+  ]
+}
