@@ -1,7 +1,9 @@
 # SR Energy Final Evidence Reconciliation and Correction Gate
 
-Evidence date: 2026-10-03 UTC  
-Branch: `seo/prelaunch-acquisition`  
+Evidence date: 2026-10-03 UTC
+
+Branch: `seo/prelaunch-acquisition`
+
 Deployment, push, merge, URL retirement, redirect, noindex, and production changes: none
 
 ## A. Starting SHA
