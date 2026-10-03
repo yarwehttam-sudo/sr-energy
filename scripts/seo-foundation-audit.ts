@@ -1,58 +1,28 @@
 import { readFileSync } from 'node:fs';
+import sitemap from '../app/sitemap';
 import { STATES } from '../lib/locations';
 import { SERVICE_TERRITORIES, isServiceTerritory } from '../lib/serviceTerritories';
 import { CLAIMS_REGISTRY, validateClaimsRegistry } from '../lib/claimsRegistry';
 
-const root = process.cwd();
-const read = (path: string) => readFileSync(`${root}/${path}`, 'utf8');
-const sitemap = read('app/sitemap.ts');
-const robots = read('app/robots.ts');
-const sources = [
-  read('app/layout.tsx'),
-  read('app/page.tsx'),
-  read('app/locations/page.tsx'),
-  read('app/locations/[state]/page.tsx'),
-  read('app/locations/[state]/[city]/page.tsx'),
-  read('app/locations/[state]/[city]/[product]/page.tsx'),
-  read('app/locations/texas/[city]/texas-vpp/page.tsx'),
-  read('app/products/solar/page.tsx'),
-  read('app/products/battery/page.tsx'),
-  read('app/products/ev-charger/page.tsx'),
-  read('app/contact/page.tsx'),
-  read('app/privacy-policy/page.tsx'),
-  read('app/terms-of-service/page.tsx'),
-];
-
-const cityCount = STATES.reduce((total, state) => total + state.cities.length, 0);
-const unsupportedStates = STATES.filter(({ abbr }) => !isServiceTerritory(abbr)).map(({ abbr }) => abbr);
-const canonicalDomains = [...new Set(sources.flatMap((source) => source.match(/https:\/\/srenergy\.(?:com|us)/g) ?? []))];
-const warnings = [
-  `Legacy locations contain ${STATES.length} states and ${cityCount} cities; authoritative scope has ${SERVICE_TERRITORIES.length} territories.`,
-  `Legacy unsupported states: ${unsupportedStates.join(', ')}.`,
-  'Washington DC is authoritative but absent from the legacy location dataset.',
-  `Canonical hosts in source: ${canonicalDomains.join(', ')}.`,
-  robots.includes('https://srenergy.com/sitemap.xml') && sitemap.includes("https://srenergy.us")
-    ? 'robots sitemap host (.com) differs from generated sitemap host (.us).'
-    : 'robots/sitemap host mismatch not detected.',
-  'Sitemap includes routes with no matching app page: /products/texas-vpp, /calculator, /faq, /privacy.',
-  `City-product generator can emit ${cityCount * 4} paths, while sitemap includes only the ${STATES.find(({ abbr }) => abbr === 'TX')?.cities.length ?? 0} dedicated Texas VPP paths.`,
-  'No analytics tag/provider was found in the reviewed app sources.',
-];
-
+const read = (path: string) => readFileSync(`${process.cwd()}/${path}`, 'utf8');
+const sourcePaths = ['app/layout.tsx','app/page.tsx','app/components/LeadCaptureForm.tsx','app/api/contact/route.ts','app/locations/page.tsx','app/locations/[state]/page.tsx','app/locations/[state]/[city]/page.tsx','app/locations/[state]/[city]/[product]/page.tsx','app/locations/texas/[city]/texas-vpp/page.tsx','app/products/solar/page.tsx','app/products/battery/page.tsx','app/products/ev-charger/page.tsx','app/contact/page.tsx','app/privacy-policy/page.tsx','app/terms-of-service/page.tsx','app/sitemap.ts','app/robots.ts'];
+const sources = sourcePaths.map(read).join('\n');
+const urls = sitemap().map((entry) => entry.url);
 const errors = validateClaimsRegistry();
-if (canonicalDomains.length !== 2) errors.push('Expected the documented .com/.us canonical split to be detectable.');
-if (SERVICE_TERRITORIES.length !== 20) errors.push('Service territory count is not 20.');
-if (!sitemap.includes('TEXAS.cities')) errors.push('Texas VPP preservation is missing from sitemap generation.');
-if (!robots.includes("disallow: ['/api/', '/thank-you', '/_next/']")) errors.push('Expected robots protections changed.');
-if (CLAIMS_REGISTRY.length === 0) errors.push('Claims registry is empty.');
+const unsupportedStates = STATES.filter(({ abbr }) => !isServiceTerritory(abbr)).map(({ abbr }) => abbr);
 
-console.log('SEO foundation audit');
-console.log(`states=${STATES.length} cities=${cityCount} territories=${SERVICE_TERRITORIES.length} claims=${CLAIMS_REGISTRY.length}`);
-for (const warning of warnings) console.log(`HOLD: ${warning}`);
+if (SERVICE_TERRITORIES.length !== 20 || !SERVICE_TERRITORIES.some(({ code }) => code === 'DC')) errors.push('Authoritative territory config must contain 19 states plus DC.');
+if (STATES.length !== 30) errors.push('Legacy state inventory changed; preserve all 30 routes.');
+if (sources.includes('https://srenergy.com')) errors.push('Active canonical/SEO source still references srenergy.com.');
+if (!sources.includes('https://srenergy.us')) errors.push('srenergy.us canonical base is missing.');
+if (urls.length !== new Set(urls).size) errors.push('Sitemap contains duplicate URLs.');
+if (urls.some((url) => ['/products/texas-vpp','/calculator','/faq','/privacy'].includes(new URL(url).pathname))) errors.push('Sitemap contains a known 404-only route.');
+if (!urls.some((url) => url.endsWith('/locations/texas/houston/texas-vpp'))) errors.push('Texas VPP preservation is missing from sitemap.');
+if (!sources.includes('first_touch') || !sources.includes('latest_touch')) errors.push('Attribution architecture is missing.');
+if (!sources.includes('lead_created_at')) errors.push('Lead-created event timestamp is missing.');
 
-if (errors.length > 0) {
-  for (const error of errors) console.error(`ERROR: ${error}`);
-  process.exitCode = 1;
-} else {
-  console.log('PASS: foundation invariants hold; acquisition remains HOLD pending research/GSC.');
-}
+console.log('SEO pre-launch candidate audit');
+console.log(`legacy_states=${STATES.length} legacy_cities=${STATES.reduce((sum, state) => sum + state.cities.length, 0)} territories=${SERVICE_TERRITORIES.length} claims=${CLAIMS_REGISTRY.length} sitemap_urls=${urls.length}`);
+console.log(`HOLD: legacy unsupported states remain preserved: ${unsupportedStates.join(', ')}`);
+console.log('HOLD: GSC, backlink exports, paid keyword metrics, signed program documents, and numeric production CWV remain unavailable.');
+if (errors.length) { for (const error of errors) console.error(`ERROR: ${error}`); process.exitCode = 1; } else console.log('PASS: candidate invariants hold; launch remains HOLD pending external evidence.');

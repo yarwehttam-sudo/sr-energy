@@ -38,9 +38,9 @@ for (const route of ['/products/texas-vpp', '/calculator', '/faq', '/privacy']) 
     routeKind: 'sitemap-only',
     state: '',
     territoryStatus: 'N/A',
-    currentDiscovery: 'SITEMAP_NO_MATCHING_APP_PAGE',
+    currentDiscovery: 'REMOVED_FROM_CANDIDATE_SITEMAP_NO_APP_PAGE',
     disposition: 'HOLD_DATA_REQUIRED',
-    notes: 'Do not redirect or remove until GSC/backlink evidence is reviewed.',
+    notes: 'Retained in inventory but removed from the candidate sitemap; do not redirect or repurpose until GSC/backlink evidence is reviewed.',
   });
 }
 
@@ -102,10 +102,10 @@ writeFileSync(join(outputDir, 'url-inventory.csv'), csv);
 const matrix = `route_family,current_state,phase_1_disposition,evidence_required,next_action\n` +
   `"Supported legacy state/city/product URLs","Live/generatable","PRESERVE_SUPPORTED","GSC coverage and backlink export","Keep unchanged in Phase 1"\n` +
   `"Unsupported legacy state/city/product URLs","Live/generatable","HOLD_DATA_REQUIRED","GSC impressions/clicks/indexing and backlink export","Preserve; decide redirect/noindex/retire only after evidence"\n` +
-  `"Washington DC territory","Authoritative territory absent from legacy dataset","HOLD_DATA_REQUIRED","Approved city/service scope and URL naming","Add only in a later implementation after scope approval"\n` +
+  `"Washington DC territory","Authoritative selector option; absent from legacy route dataset","HOLD_DATA_REQUIRED","Approved city/service scope and URL naming","Do not mass-generate DC routes until scope approval"\n` +
   `"Texas VPP URLs","Live/generatable and sitemapped","PRESERVE_CLAIMS_REVIEW","Executed program terms, utility rules, warranty, consented proof","Preserve URLs; review or qualify copy before acquisition"\n` +
   `"Non-Texas texas-vpp catch-all URLs","Generatable but not sitemapped","HOLD_DATA_REQUIRED","GSC/indexing/backlink evidence plus product applicability","Do not promote; do not delete until evidence review"\n` +
-  `"Sitemap-only URLs with no app page","Published in sitemap","HOLD_DATA_REQUIRED","GSC/indexing/backlink evidence and intended destination","Do not redirect/remove in Phase 1"\n`;
+  `"Historical sitemap-only URLs with no app page","Removed from candidate sitemap; retained in inventory","HOLD_DATA_REQUIRED","GSC/indexing/backlink evidence and intended destination","Do not redirect, delete inventory, or repurpose without evidence"\n`;
 writeFileSync(join(outputDir, 'legacy-migration-matrix.csv'), matrix);
 
 const counts = rows.reduce<Record<string, number>>((acc, row) => {

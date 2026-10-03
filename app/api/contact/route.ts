@@ -58,10 +58,20 @@ export async function POST(request: Request) {
     if (!lead) return NextResponse.json({ error: 'Please provide valid contact, ZIP, market, product intent, consent, and attribution fields.' }, { status: 400 });
     const leadCreatedAt = new Date().toISOString();
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const emailResult = await resend.emails.send({ from: 'SR Energy Website <noreply@srenergy.us>', to: ['JoinUs@SREnergy.US'], subject: `New ${lead.product_intent} request: ${lead.name}`, html: `<h2>New home energy request</h2><p><strong>Created:</strong> ${html(leadCreatedAt)}</p><p><strong>Name:</strong> ${html(lead.name)}</p><p><strong>Email:</strong> ${html(lead.email)}</p><p><strong>Phone:</strong> ${html(lead.phone)}</p><p><strong>ZIP / market:</strong> ${html(lead.zip)} / ${html(lead.market)}</p><p><strong>Intent:</strong> ${html(lead.product_intent)}</p><p><strong>Homeowner:</strong> ${lead.homeowner ? 'Yes' : 'No'}</p><pre>${html(JSON.stringify(lead.attribution, null, 2))}</pre>` });
+    let emailId: string | undefined;
+    try {
+      const emailResult = await resend.emails.send({ from: 'SR Energy Website <noreply@srenergy.us>', to: ['JoinUs@SREnergy.US'], subject: `New ${lead.product_intent} request: ${lead.name}`, html: `<h2>New home energy request</h2><p><strong>Created:</strong> ${html(leadCreatedAt)}</p><p><strong>Name:</strong> ${html(lead.name)}</p><p><strong>Email:</strong> ${html(lead.email)}</p><p><strong>Phone:</strong> ${html(lead.phone)}</p><p><strong>ZIP / market:</strong> ${html(lead.zip)} / ${html(lead.market)}</p><p><strong>Intent:</strong> ${html(lead.product_intent)}</p><p><strong>Homeowner:</strong> ${lead.homeowner ? 'Yes' : 'No'}</p><pre>${html(JSON.stringify(lead.attribution, null, 2))}</pre>` });
+      if (emailResult.error) throw new Error(`Resend API error: ${emailResult.error.message}`);
+      emailId = emailResult.data?.id;
+    } catch (error) {
+      console.error('Lead email delivery failed', error);
+    }
     let notionPageId: string | undefined;
     try { notionPageId = (await createNotionLead(lead, leadCreatedAt) as { id?: string }).id; } catch (error) { console.error('Notion lead sync failed', error); }
-    return NextResponse.json({ success: true, lead_created_at: leadCreatedAt, emailId: emailResult.data?.id, notionPageId });
+    if (!emailId && !notionPageId) {
+      return NextResponse.json({ error: 'Unable to save your request right now. Please try again.' }, { status: 502 });
+    }
+    return NextResponse.json({ success: true, lead_created_at: leadCreatedAt, delivery: { email: Boolean(emailId), notion: Boolean(notionPageId) } });
   } catch (error) {
     console.error('Contact form error', error);
     return NextResponse.json({ error: 'Unable to submit right now. Please try again.' }, { status: 500 });
