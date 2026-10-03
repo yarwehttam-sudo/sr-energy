@@ -1,6 +1,6 @@
 {
   "evidence_date": "2026-10-03 UTC",
-  "candidate_sha": "b92159f9fb7febccd131c0fd1e14735a8501292b",
+  "candidate_sha": "94e95c7248bdc1e0430c826fbb02a1c3e2d5bda6",
   "origin_main_sha": "e83d18cc8fddf27f36aa11b0ea59e1b3be0279c7",
   "branch": "seo/prelaunch-acquisition",
   "production_deployed": false,
@@ -10,8 +10,19 @@
   "canonical_failures": [],
   "schema_json_failures": [],
   "main_h1_failures": [],
+  "internal_path_methodology": "Distinct same-origin anchor target pathnames; query strings and fragments are dropped, duplicate and trailing slashes are normalized, and root is retained as /.",
   "internal_links_checked": 596,
+  "internal_path_derivation": {
+    "sitemap_paths": 182,
+    "linked_non_sitemap_paths": 414,
+    "total": 596
+  },
+  "root_excluded_reproduction": {
+    "count": 595,
+    "explanation": "595 is reproduced only by excluding the valid root path '/'; the canonical method retains root and therefore reports 596."
+  },
   "internal_link_failures": [],
+  "non_texas_vpp_internal_links": [],
   "invalid_form_status": 400,
   "build": {
     "status": "PASS",

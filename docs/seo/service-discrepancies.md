@@ -1,10 +1,12 @@
 # Service Territory Discrepancies
 
+> Foundation snapshot only. This document records the Phase 1 state at `2e41fad2652ba5f26b217eff40e1600e0b55e56b`; it is preserved as historical evidence and is not the current candidate decision record. The authoritative reconciliation for the corrected candidate is `final-evidence-reconciliation.md`, and the current executable sources are `lib/serviceTerritories.ts`, `app/sitemap.ts`, and the pre-launch audits.
+
 ## Authoritative service scope
 
 The approved scope is 20 territories: CA, CO, CT, DE, IL, IA, MD, MI, MT, NE, NH, NJ, OH, OR, PA, RI, TX, VA, WA, and Washington DC.
 
-`lib/serviceTerritories.ts` is the typed Phase 1 source of truth. It is intentionally not connected to route generation yet, so no existing URL is hidden or removed.
+At this foundation snapshot, `lib/serviceTerritories.ts` was the typed Phase 1 source of truth and was intentionally not connected to route generation, so no existing URL was hidden or removed.
 
 ## Legacy dataset comparison
 

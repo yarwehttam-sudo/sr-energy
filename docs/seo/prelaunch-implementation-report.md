@@ -72,7 +72,7 @@ Active metadata uses `https://srenergy.us`. Each of the 182 sitemap URLs returne
 
 ## 17. Structured data, breadcrumbs and internal links
 
-Only factual `BreadcrumbList` JSON-LD remains; unverified LocalBusiness, Service, FAQ and Review schema generators were removed. Every JSON-LD block encountered in the 182-URL crawl parsed successfully. Breadcrumbs exist on preserved location routes. A production-like crawl checked 596 unique internal paths with zero non-200 results.
+Only factual `BreadcrumbList` JSON-LD remains; unverified LocalBusiness, Service, FAQ and Review schema generators were removed. Every JSON-LD block encountered in the 182-URL crawl parsed successfully. Breadcrumbs exist on preserved location routes. The canonical methodology in `scripts/prelaunch-route-audit.ts` checks distinct same-origin anchor target pathnames after dropping query strings and fragments and normalizing duplicate/trailing slashes while retaining `/`. It found 596 paths (182 sitemap paths plus 414 linked non-sitemap city-product paths), all HTTP 200. A 595 count is reproducible only when the valid root path is excluded.
 
 ## 18. Sitemap and robots
 
@@ -92,17 +92,17 @@ The global layout has a skip link and `main-content` target. Candidate pages exp
 
 ## 22. Performance and regression evidence
 
-The optimized Next.js build passed and generated 738/738 pages. Recorded first-load JavaScript: homepage and product pages 98.6 kB, contact 89.9 kB, shared 87.2 kB. Lint, TypeScript, 11 tests, SEO audit and build passed. Numeric production Lighthouse/CrUX/Core Web Vitals and a production before/after baseline were unavailable, so this is not a CWV GO decision.
+The optimized Next.js build passed and generated 738/738 pages. Recorded first-load JavaScript: homepage and product pages 98.6 kB, contact 89.9 kB, shared 87.2 kB. Lint, TypeScript, 12 tests, SEO audit and build passed. Numeric production Lighthouse/CrUX/Core Web Vitals and a production before/after baseline were unavailable, so this is not a CWV GO decision.
 
 Commands executed successfully:
 
 - `npm run inventory:seo`
 - `npm run typecheck`
-- `npm test` — 11/11 passed
+- `npm test` — 12/12 passed
 - `npm run lint` — zero warnings/errors
 - `npm run audit:seo` — invariant PASS with expected HOLD findings
 - `NOTION_API_KEY=test FIRECRAWL_API_KEY=test RESEND_API_KEY=test npm run build` — compiled; 738/738 generated
-- local production HTTP audit — 182 sitemap URLs and 596 internal paths checked
+- `PRELAUNCH_BASE_URL=http://localhost:3289 npm run audit:routes` — 182 sitemap URLs and 596 canonical internal paths checked; the 595 root-excluded variant is reported explicitly
 
 ## 23. Blockers, release gates and final recommendation
 
