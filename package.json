@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "inventory:seo": "tsx scripts/generate-seo-inventory.ts",
+    "audit:seo": "tsx scripts/seo-foundation-audit.ts"
   },
   "dependencies": {
     "@mendable/firecrawl-js": "^4.18.3",
