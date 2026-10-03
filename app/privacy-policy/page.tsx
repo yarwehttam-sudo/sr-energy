@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy | SR Energy',
   description:
     'SR Energy privacy policy — how we collect, use, and protect your personal information, including SMS consent and opt-out instructions.',
-  alternates: { canonical: 'https://srenergy.com/privacy-policy/' },
+  alternates: { canonical: 'https://srenergy.us/privacy-policy/' },
 };
 
 export default function PrivacyPolicyPage() {
@@ -69,7 +69,8 @@ export default function PrivacyPolicyPage() {
             </ul>
             <p className="mt-3">
               We do not collect sensitive financial information such as credit card numbers or bank
-              account details through our website. SR Energy does not run credit checks.
+              account details through our website. Any financing process and its data requirements
+              would be disclosed separately before you choose to proceed.
             </p>
           </div>
 

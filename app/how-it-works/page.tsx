@@ -1,19 +1,6 @@
 import type { Metadata } from 'next';
-import HowItWorksClient from './HowItWorksClient';
+import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: 'How It Works — Solar Installation in 4 Easy Steps',
-  description:
-    'Learn how SR Energy makes going solar simple. Free quote, site assessment, professional installation, and start saving — all with no credit check required.',
-  alternates: { canonical: 'https://srenergy.us/how-it-works/' },
-  openGraph: {
-    title: 'How It Works — Solar Installation in 4 Easy Steps | SR Energy',
-    description:
-      'Learn how SR Energy makes going solar simple. Free quote, site assessment, professional installation, and start saving — all with no credit check required.',
-    url: 'https://srenergy.us/how-it-works/',
-  },
-};
-
-export default function HowItWorksPage() {
-  return <HowItWorksClient />;
-}
+export const metadata: Metadata = { title: 'How a Home Energy Review Works', description: 'From product intent and ZIP code to an address-specific review and written options.', alternates: { canonical: 'https://srenergy.us/how-it-works/' } };
+const steps = ['Choose solar, battery or EV charging and share your ZIP code.', 'SR Energy reviews the requested market and basic property information.', 'If service may be available, discuss the property, utility and product requirements.', 'Review any proposed scope, pricing, financing, equipment, warranty and timing in writing before deciding.'];
+export default function HowItWorksPage() { return <main className="-mx-4 min-h-screen bg-white sm:-mx-6 lg:-mx-8"><section className="bg-[#1e2333] px-4 py-16 text-white"><div className="mx-auto max-w-3xl"><h1 className="text-4xl font-bold">A review before any recommendation</h1><p className="mt-5 text-lg text-gray-300">The website captures intent; it does not approve a project or establish availability, eligibility, savings or terms.</p></div></section><section className="px-4 py-12"><ol className="mx-auto max-w-3xl space-y-4">{steps.map((step, index) => <li key={step} className="flex gap-4 rounded-xl border p-5"><span className="font-bold text-[#9a6500]">{index + 1}</span><span>{step}</span></li>)}</ol><div className="mx-auto mt-8 max-w-3xl"><Link href="/contact" className="inline-block rounded-lg bg-[#F0A500] px-6 py-3 font-semibold text-[#1e2333]">Request a review</Link></div></section></main>; }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Terms of Service | SR Energy',
   description:
     'SR Energy terms of service — website use, quote request terms, SMS communications, savings estimate disclaimers, and governing law.',
-  alternates: { canonical: 'https://srenergy.com/terms-of-service/' },
+  alternates: { canonical: 'https://srenergy.us/terms-of-service/' },
 };
 
 export default function TermsOfServicePage() {

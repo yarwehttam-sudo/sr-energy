@@ -42,5 +42,6 @@ test('claims registry has unique ids and no unsupported approvals', () => {
   assert.deepEqual(validateClaimsRegistry(), []);
   assert.equal(new Set(CLAIMS_REGISTRY.map(({ id }) => id)).size, CLAIMS_REGISTRY.length);
   assert.ok(CLAIMS_REGISTRY.every(({ status }) => status === 'HOLD_DATA_REQUIRED'));
-  assert.ok(CLAIMS_REGISTRY.every(({ evidence }) => evidence.length === 0));
+  assert.ok(CLAIMS_REGISTRY.every(({ sources }) => sources.length === 0));
+  assert.ok(CLAIMS_REGISTRY.every(({ verifiedAt, reviewBy }) => verifiedAt === null && reviewBy === null));
 });
