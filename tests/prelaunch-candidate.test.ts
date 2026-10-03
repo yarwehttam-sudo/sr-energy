@@ -59,6 +59,7 @@ test('claims remain held and are not publishable', () => {
   assert.ok(CLAIMS_REGISTRY.every((claim) => claim.status === 'HOLD_DATA_REQUIRED'));
   assert.ok(CLAIMS_REGISTRY.every((claim) => !isClaimPublishable(claim)));
   assert.ok(CLAIMS_REGISTRY.every((claim) => claim.geographies.length && claim.products.length && claim.guardrail));
+  assert.doesNotMatch(read('app/privacy-policy/page.tsx'), /Texas VPP eligibility/i);
 });
 
 test('canonical, sitemap and robots use srenergy.us only', () => {
