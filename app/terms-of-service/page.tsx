@@ -28,7 +28,7 @@ export default function TermsOfServicePage() {
           <div>
             <p>
               These Terms of Service (&quot;Terms&quot;) govern your use of the SR Energy website
-              located at <strong>srenergy.com</strong> and any quote request, contact, or
+              located at <strong>srenergy.us</strong> and any quote request, contact, or
               communication services we provide (collectively, the &quot;Services&quot;). By
               accessing our website or submitting a quote request, you agree to be bound by these
               Terms. If you do not agree, please do not use our Services.

@@ -1,12 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import sitemap from '../app/sitemap';
 import { SERVICE_TERRITORIES } from '../lib/serviceTerritories';
 import { ATTRIBUTION_KEYS, LEAD_MILESTONES, PRODUCT_INTENTS } from '../lib/acquisition';
 import { CLAIMS_REGISTRY, isClaimPublishable } from '../lib/claimsRegistry';
 
 const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+const sourceFiles = (directory: string): string[] => readdirSync(new URL(`../${directory}`, import.meta.url), { withFileTypes: true })
+  .flatMap((entry) => entry.isDirectory()
+    ? sourceFiles(`${directory}/${entry.name}`)
+    : entry.name.endsWith('.ts') || entry.name.endsWith('.tsx')
+      ? [`${directory}/${entry.name}`]
+      : []);
+// Exact-host exceptions must be source files with a reason. There are currently none.
+const LEGITIMATE_SR_ENERGY_DOT_COM_EXCEPTIONS: Readonly<Record<string, string>> = {};
 const activePages = [
   'app/layout.tsx', 'app/page.tsx', 'app/components/HomePageClient.tsx',
   'app/components/ProductLanding.tsx', 'app/components/LeadCaptureForm.tsx',
@@ -63,6 +71,18 @@ test('canonical, sitemap and robots use srenergy.us only', () => {
   assert.ok(urls.every((url) => url.startsWith('https://srenergy.us/')));
   for (const invalid of ['/products/texas-vpp', '/calculator', '/faq', '/privacy']) assert.ok(!urls.some((url) => new URL(url).pathname === invalid));
   for (const city of ['houston', 'san-antonio', 'dallas', 'austin', 'fort-worth']) assert.ok(urls.includes(`https://srenergy.us/locations/texas/${city}/texas-vpp`));
+});
+
+test('active website sources use the selected srenergy.us host', () => {
+  const staleHostFiles = [...sourceFiles('app'), ...sourceFiles('lib')]
+    .filter((path) => /(?:https?:\/\/)?(?:www\.)?srenergy\.com\b/i.test(read(path)))
+    .filter((path) => !LEGITIMATE_SR_ENERGY_DOT_COM_EXCEPTIONS[path]);
+  assert.deepEqual(staleHostFiles, []);
+  for (const [path, reason] of Object.entries(LEGITIMATE_SR_ENERGY_DOT_COM_EXCEPTIONS)) {
+    assert.ok(reason.trim(), `Host exception ${path} must document a reason.`);
+  }
+  assert.equal(read('lib/businessInfo.ts').match(/https:\/\/srenergy\.us/g)?.length, 1);
+  assert.match(read('app/terms-of-service/page.tsx'), /located at <strong>srenergy\.us<\/strong>/);
 });
 
 test('authoritative selector comes from the single typed 20-territory config', () => {
