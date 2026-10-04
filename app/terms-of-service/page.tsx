@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | SR Energy',
+  title: 'Terms of Service',
   description:
     'SR Energy terms of service — website use, quote request terms, SMS communications, savings estimate disclaimers, and governing law.',
   alternates: { canonical: 'https://srenergy.us/terms-of-service/' },

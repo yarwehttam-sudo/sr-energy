@@ -64,6 +64,7 @@ export default function LeadCaptureForm({ defaultIntent }: { defaultIntent?: Pro
       homeowner: form.get('homeowner') === 'yes',
       consent: form.get('consent') === 'on',
       attribution,
+      website: String(form.get('website') ?? ''),
     };
     try {
       const response = await fetch('/api/contact', {
@@ -87,6 +88,7 @@ export default function LeadCaptureForm({ defaultIntent }: { defaultIntent?: Pro
   const field = 'w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-gray-900 focus:border-[#F0A500] focus:outline-none focus:ring-2 focus:ring-[#F0A500]/30';
   return (
     <form onSubmit={submit} className="space-y-4 rounded-xl bg-white p-5 text-left text-gray-900 shadow-lg sm:p-7" aria-label="Home energy request">
+      <div className="sr-only" aria-hidden="true"><label htmlFor="website">Leave this field blank</label><input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" /></div>
       <div>
         <label htmlFor="product_intent" className="mb-1 block text-sm font-semibold">What are you exploring?</label>
         <select id="product_intent" name="product_intent" value={productIntent} onChange={(event) => setProductIntent(event.target.value as ProductIntent)} className={field} required>

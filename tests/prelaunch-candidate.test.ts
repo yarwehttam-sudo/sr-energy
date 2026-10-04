@@ -36,11 +36,12 @@ test('lead schema preserves first/latest attribution and downstream milestone sl
   assert.deepEqual(LEAD_MILESTONES, ['lead_created_at','contacted_at','qualified_at','appointment_booked_at','proposal_sent_at','closed_won_at','closed_lost_at']);
   const form = read('app/components/LeadCaptureForm.tsx');
   const api = read('app/api/contact/route.ts');
-  for (const token of ['first_touch', 'latest_touch', 'landing_page', 'referrer']) assert.match(`${form}\n${api}`, new RegExp(token));
-  for (const token of ['zip', 'market', 'product_intent', 'consent', 'lead_created_at', 'milestones']) assert.match(api, new RegExp(token));
-  assert.doesNotMatch(`${form}\n${api}`, /HeyAgain|proposal automation/i);
-  assert.match(api, /if \(!emailId && !notionPageId\)/);
-  assert.match(api, /status: 502/);
+  const endpoint = read('lib/leadEndpoint.ts');
+  for (const token of ['first_touch', 'latest_touch', 'landing_page', 'referrer']) assert.match(`${form}\n${api}\n${endpoint}`, new RegExp(token));
+  for (const token of ['zip', 'market', 'product_intent', 'consent', 'lead_created_at', 'milestones']) assert.match(`${api}\n${endpoint}`, new RegExp(token));
+  assert.doesNotMatch(`${form}\n${api}\n${endpoint}`, /HeyAgain|proposal automation/i);
+  assert.match(endpoint, /if \(!receipts\.length\)/);
+  assert.match(endpoint, /, 502\)/);
 });
 
 test('lead form has labelled required controls and responsive layout guards', () => {
@@ -52,7 +53,9 @@ test('lead form has labelled required controls and responsive layout guards', ()
   assert.match(form, /aria-label="Home energy request"/);
   assert.match(form, /role="alert"/);
   assert.match(form, /sm:grid-cols-2/);
-  assert.match(read('app/layout.tsx'), /href="#main-content"/);
+  assert.match(read('app/components/SkipLink.tsx'), /href="#main-content"/);
+  assert.match(read('app/components/SkipLink.tsx'), /\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(read('app/layout.tsx'), /id="main-content" tabIndex=\{-1\}/);
 });
 
 test('claims remain held and are not publishable', () => {

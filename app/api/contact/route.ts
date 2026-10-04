@@ -1,79 +1,85 @@
-import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
-import { isProductIntent, sanitizeAttributionValue, type LeadAttribution, type ProductIntent } from '@/lib/acquisition';
-import { isServiceTerritory } from '@/lib/serviceTerritories';
+import { handleLeadRequest, type LeadDeliveryProvider, type LeadRequest } from '@/lib/leadEndpoint';
 
-const NOTION_DATABASE_ID = '410f33a7-f6c2-402d-849f-8b085c6110e6';
 const NOTION_VERSION = '2022-06-28';
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-interface LeadRequest {
-  name: string;
-  phone: string;
-  email: string;
-  zip: string;
-  market: string;
-  product_intent: ProductIntent;
-  homeowner: boolean;
-  consent: boolean;
-  attribution: LeadAttribution;
-}
-
-const text = (value: unknown, max: number) => typeof value === 'string' ? value.trim().slice(0, max) : '';
 const html = (value: string) => value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character] ?? character);
 
-function normalizeAttribution(value: unknown): LeadAttribution | null {
-  if (!value || typeof value !== 'object') return null;
-  const record = value as Record<string, unknown>;
-  const normalizeTouch = (touch: unknown) => {
-    const item = touch && typeof touch === 'object' ? touch as Record<string, unknown> : {};
-    return {
-      landing_page: sanitizeAttributionValue(item.landing_page), referrer: sanitizeAttributionValue(item.referrer), captured_at: sanitizeAttributionValue(item.captured_at, 50),
-      utm_source: sanitizeAttributionValue(item.utm_source), utm_medium: sanitizeAttributionValue(item.utm_medium), utm_campaign: sanitizeAttributionValue(item.utm_campaign), utm_term: sanitizeAttributionValue(item.utm_term), utm_content: sanitizeAttributionValue(item.utm_content), gclid: sanitizeAttributionValue(item.gclid), msclkid: sanitizeAttributionValue(item.msclkid),
-    };
-  };
-  return { first_touch: normalizeTouch(record.first_touch), latest_touch: normalizeTouch(record.latest_touch) };
+function validConfiguredEmail(value: string | undefined) {
+  return value && EMAIL_PATTERN.test(value) ? value : null;
 }
 
-function parseLead(body: Record<string, unknown>): LeadRequest | null {
-  const name = text(body.name, 100), phone = text(body.phone, 30), email = text(body.email, 254).toLowerCase(), zip = text(body.zip, 5), market = text(body.market, 2).toUpperCase(), intent = text(body.product_intent, 30), attribution = normalizeAttribution(body.attribution);
-  if (!name || !phone || !/^\S+@\S+\.\S+$/.test(email) || !/^\d{5}$/.test(zip) || !isServiceTerritory(market) || !isProductIntent(intent) || body.consent !== true || !attribution) return null;
-  return { name, phone, email, zip, market, product_intent: intent, homeowner: body.homeowner === true, consent: true, attribution };
+function emailProvider(): LeadDeliveryProvider | null {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = validConfiguredEmail(process.env.LEAD_NOTIFICATION_EMAIL);
+  const from = validConfiguredEmail(process.env.LEAD_FROM_EMAIL);
+  if (!apiKey || !to || !from) return null;
+
+  return {
+    name: 'email',
+    async deliver(lead: LeadRequest, leadCreatedAt: string, signal: AbortSignal) {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        signal,
+        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: `SR Energy Website <${from}>`,
+          to: [to],
+          subject: `New ${lead.product_intent} request: ${lead.name}`,
+          html: `<h2>New home energy request</h2><p><strong>Created:</strong> ${html(leadCreatedAt)}</p><p><strong>Name:</strong> ${html(lead.name)}</p><p><strong>Email:</strong> ${html(lead.email)}</p><p><strong>Phone:</strong> ${html(lead.phone)}</p><p><strong>ZIP / market:</strong> ${html(lead.zip)} / ${html(lead.market)}</p><p><strong>Intent:</strong> ${html(lead.product_intent)}</p><p><strong>Homeowner:</strong> ${lead.homeowner ? 'Yes' : 'No'}</p><p><strong>Consent:</strong> Yes</p><pre>${html(JSON.stringify(lead.attribution, null, 2))}</pre>`,
+        }),
+      });
+      if (!response.ok) throw new Error(`email provider status ${response.status}`);
+      const result = await response.json() as { id?: string };
+      return result.id ?? null;
+    },
+  };
 }
 
-async function createNotionLead(data: LeadRequest, leadCreatedAt: string) {
-  const notes = JSON.stringify({ zip: data.zip, market: data.market, product_intent: data.product_intent, homeowner: data.homeowner, consent: data.consent, lead_created_at: leadCreatedAt, attribution: data.attribution, milestones: {} });
-  const properties = {
-    'Contact Name': { title: [{ text: { content: data.name } }] }, Email: { email: data.email }, Phone: { phone_number: data.phone }, Notes: { rich_text: [{ text: { content: notes.slice(0, 1900) } }] }, State: { rich_text: [{ text: { content: data.market } }] },
-    'Lead Source': { select: { name: 'Website' } }, 'Pipeline Stage': { select: { name: 'New Lead' } }, Priority: { select: { name: 'Warm' } },
+function notionProvider(): LeadDeliveryProvider | null {
+  const apiKey = process.env.NOTION_API_KEY;
+  const databaseId = process.env.LEAD_NOTION_DATABASE_ID;
+  if (!apiKey || !databaseId) return null;
+
+  return {
+    name: 'notion',
+    async deliver(lead: LeadRequest, leadCreatedAt: string, signal: AbortSignal) {
+      const notes = JSON.stringify({
+        zip: lead.zip,
+        market: lead.market,
+        product_intent: lead.product_intent,
+        homeowner: lead.homeowner,
+        consent: lead.consent,
+        lead_created_at: leadCreatedAt,
+        attribution: lead.attribution,
+        milestones: {},
+      });
+      const response = await fetch('https://api.notion.com/v1/pages', {
+        method: 'POST',
+        signal,
+        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Notion-Version': NOTION_VERSION },
+        body: JSON.stringify({
+          parent: { database_id: databaseId },
+          properties: {
+            'Contact Name': { title: [{ text: { content: lead.name } }] },
+            Email: { email: lead.email },
+            Phone: { phone_number: lead.phone },
+            Notes: { rich_text: [{ text: { content: notes.slice(0, 1900) } }] },
+            State: { rich_text: [{ text: { content: lead.market } }] },
+            'Lead Source': { select: { name: 'Website' } },
+            'Pipeline Stage': { select: { name: 'New Lead' } },
+            Priority: { select: { name: 'Warm' } },
+          },
+        }),
+      });
+      if (!response.ok) throw new Error(`persistence provider status ${response.status}`);
+      const result = await response.json() as { id?: string };
+      return result.id ?? null;
+    },
   };
-  const response = await fetch('https://api.notion.com/v1/pages', { method: 'POST', headers: { Authorization: `Bearer ${process.env.NOTION_API_KEY}`, 'Content-Type': 'application/json', 'Notion-Version': NOTION_VERSION }, body: JSON.stringify({ parent: { database_id: NOTION_DATABASE_ID }, properties }) });
-  if (!response.ok) throw new Error(`Notion API error ${response.status}`);
-  return response.json();
 }
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json() as Record<string, unknown>;
-    const lead = parseLead(body);
-    if (!lead) return NextResponse.json({ error: 'Please provide valid contact, ZIP, market, product intent, consent, and attribution fields.' }, { status: 400 });
-    const leadCreatedAt = new Date().toISOString();
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    let emailId: string | undefined;
-    try {
-      const emailResult = await resend.emails.send({ from: 'SR Energy Website <noreply@srenergy.us>', to: ['JoinUs@SREnergy.US'], subject: `New ${lead.product_intent} request: ${lead.name}`, html: `<h2>New home energy request</h2><p><strong>Created:</strong> ${html(leadCreatedAt)}</p><p><strong>Name:</strong> ${html(lead.name)}</p><p><strong>Email:</strong> ${html(lead.email)}</p><p><strong>Phone:</strong> ${html(lead.phone)}</p><p><strong>ZIP / market:</strong> ${html(lead.zip)} / ${html(lead.market)}</p><p><strong>Intent:</strong> ${html(lead.product_intent)}</p><p><strong>Homeowner:</strong> ${lead.homeowner ? 'Yes' : 'No'}</p><pre>${html(JSON.stringify(lead.attribution, null, 2))}</pre>` });
-      if (emailResult.error) throw new Error(`Resend API error: ${emailResult.error.message}`);
-      emailId = emailResult.data?.id;
-    } catch (error) {
-      console.error('Lead email delivery failed', error);
-    }
-    let notionPageId: string | undefined;
-    try { notionPageId = (await createNotionLead(lead, leadCreatedAt) as { id?: string }).id; } catch (error) { console.error('Notion lead sync failed', error); }
-    if (!emailId && !notionPageId) {
-      return NextResponse.json({ error: 'Unable to save your request right now. Please try again.' }, { status: 502 });
-    }
-    return NextResponse.json({ success: true, lead_created_at: leadCreatedAt, delivery: { email: Boolean(emailId), notion: Boolean(notionPageId) } });
-  } catch (error) {
-    console.error('Contact form error', error);
-    return NextResponse.json({ error: 'Unable to submit right now. Please try again.' }, { status: 500 });
-  }
+  const providers = [emailProvider(), notionProvider()].filter((provider): provider is LeadDeliveryProvider => provider !== null);
+  return handleLeadRequest(request, providers);
 }

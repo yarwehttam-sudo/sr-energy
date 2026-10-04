@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BUSINESS_INFO } from '@/lib/businessInfo';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | SR Energy',
+  title: 'Privacy Policy',
   description:
     'SR Energy privacy policy — how we collect, use, and protect your personal information, including SMS consent and opt-out instructions.',
   alternates: { canonical: 'https://srenergy.us/privacy-policy/' },
