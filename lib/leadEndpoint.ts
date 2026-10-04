@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { isIP } from 'node:net';
 import { isProductIntent, sanitizeAttributionValue, type LeadAttribution, type ProductIntent } from '@/lib/acquisition';
 import { isServiceTerritory } from '@/lib/serviceTerritories';
 
@@ -8,6 +9,7 @@ export const LEAD_BURST_WINDOW_MS = 60_000;
 export const LEAD_SUSTAINED_LIMIT = 20;
 export const LEAD_SUSTAINED_WINDOW_MS = 3_600_000;
 export const LEAD_DUPLICATE_WINDOW_MS = 10 * 60_000;
+export const LEAD_RATE_STORE_MAX_KEYS = 1_024;
 export const PROVIDER_TIMEOUT_MS = 5_000;
 export const PROVIDER_FAILURE_THRESHOLD = 3;
 export const PROVIDER_CIRCUIT_OPEN_MS = 60_000;
@@ -88,18 +90,49 @@ export function parseLead(body: Record<string, unknown>): LeadRequest | null {
   return { name, phone, email, zip, market, product_intent: intent, homeowner: body.homeowner === true, consent: true, attribution };
 }
 
+function configuredTrustedProxyHops() {
+  const raw = process.env.LEAD_TRUSTED_PROXY_HOPS;
+  if (!raw || !/^\d+$/.test(raw)) return 0;
+  const hops = Number(raw);
+  return hops >= 1 && hops <= 5 ? hops : 0;
+}
+
+function trustedClientAddress(request: Request) {
+  if (process.env.VERCEL === '1') {
+    const platformAddress = request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim();
+    return platformAddress && isIP(platformAddress) ? platformAddress : 'unknown';
+  }
+
+  const trustedProxyHops = configuredTrustedProxyHops();
+  if (trustedProxyHops) {
+    const chain = request.headers.get('x-forwarded-for')?.split(',').map((value) => value.trim()).filter(Boolean) ?? [];
+    const trustedAddress = chain.at(-trustedProxyHops);
+    return trustedAddress && isIP(trustedAddress) ? trustedAddress : 'unknown';
+  }
+
+  return 'unknown';
+}
+
 function clientKey(request: Request) {
-  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-  const raw = forwarded || request.headers.get('x-real-ip') || 'unknown';
+  const raw = trustedClientAddress(request);
   return createHash('sha256').update(raw).digest('hex').slice(0, 24);
 }
 
-function exceedsWindow(store: Map<string, WindowCounter>, key: string, now: number, windowMs: number, limit: number) {
+function evictOldestCounter(store: Map<string, WindowCounter>) {
+  const oldest = [...store.entries()].sort(([leftKey, left], [rightKey, right]) => {
+    const timestampDifference = (left.timestamps.at(-1) ?? 0) - (right.timestamps.at(-1) ?? 0);
+    return timestampDifference || leftKey.localeCompare(rightKey);
+  })[0];
+  if (oldest) store.delete(oldest[0]);
+}
+
+function exceedsWindow(store: Map<string, WindowCounter>, key: string, now: number, windowMs: number, limit: number, maxKeys: number) {
   const current = store.get(key)?.timestamps.filter((timestamp) => now - timestamp < windowMs) ?? [];
   if (current.length >= limit) {
     store.set(key, { timestamps: current });
     return true;
   }
+  if (!store.has(key) && store.size >= maxKeys) evictOldestCounter(store);
   current.push(now);
   store.set(key, { timestamps: current });
   return false;
@@ -111,6 +144,16 @@ function duplicateKey(lead: LeadRequest) {
 }
 
 function cleanup(now: number) {
+  for (const [key, counter] of burstCounters) {
+    const timestamps = counter.timestamps.filter((timestamp) => now - timestamp < LEAD_BURST_WINDOW_MS);
+    if (timestamps.length) burstCounters.set(key, { timestamps });
+    else burstCounters.delete(key);
+  }
+  for (const [key, counter] of sustainedCounters) {
+    const timestamps = counter.timestamps.filter((timestamp) => now - timestamp < LEAD_SUSTAINED_WINDOW_MS);
+    if (timestamps.length) sustainedCounters.set(key, { timestamps });
+    else sustainedCounters.delete(key);
+  }
   for (const [key, timestamp] of duplicateKeys) if (now - timestamp >= LEAD_DUPLICATE_WINDOW_MS) duplicateKeys.delete(key);
 }
 
@@ -159,15 +202,16 @@ function json(body: Record<string, unknown>, status: number, headers?: HeadersIn
 export async function handleLeadRequest(
   request: Request,
   providers: LeadDeliveryProvider[],
-  options: { now?: () => number } = {},
+  options: { now?: () => number; rateStoreMaxKeys?: number } = {},
 ): Promise<Response> {
   const now = options.now?.() ?? Date.now();
   const requestId = randomUUID();
   const key = clientKey(request);
   cleanup(now);
 
-  if (exceedsWindow(burstCounters, key, now, LEAD_BURST_WINDOW_MS, LEAD_BURST_LIMIT)
-    || exceedsWindow(sustainedCounters, key, now, LEAD_SUSTAINED_WINDOW_MS, LEAD_SUSTAINED_LIMIT)) {
+  const rateStoreMaxKeys = Math.max(1, options.rateStoreMaxKeys ?? LEAD_RATE_STORE_MAX_KEYS);
+  if (exceedsWindow(burstCounters, key, now, LEAD_BURST_WINDOW_MS, LEAD_BURST_LIMIT, rateStoreMaxKeys)
+    || exceedsWindow(sustainedCounters, key, now, LEAD_SUSTAINED_WINDOW_MS, LEAD_SUSTAINED_LIMIT, rateStoreMaxKeys)) {
     emit('rate_limited', { request_id: requestId });
     return json({ error: 'Too many requests. Please wait and try again.' }, 429, { 'Retry-After': '60' });
   }
@@ -239,4 +283,11 @@ export function resetLeadProtectionStateForTests() {
   sustainedCounters.clear();
   duplicateKeys.clear();
   circuits.clear();
+}
+
+export function leadProtectionStateForTests() {
+  return {
+    burstKeys: [...burstCounters.keys()],
+    sustainedKeys: [...sustainedCounters.keys()],
+  };
 }
